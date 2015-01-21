@@ -1,0 +1,20 @@
+
+@media (min-width:1537px) and (max-width: 2048px) {  
+	.iphone-big-cn {
+		display:none !important;
+	}
+
+	.ipad-cn{
+		display:block !important;
+	}
+
+}
+
+@media (max-width: 1536px) { 
+	.iphone-big-cn {
+		display: block !important;
+	}
+	.ipad-cn{
+		display:none !important;
+	}
+}

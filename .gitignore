@@ -1,0 +1,5 @@
+.idea/*
+data/cache/*
+.DS_Store
+public/.htaccess
+conf/*

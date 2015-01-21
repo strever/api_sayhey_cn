@@ -1,0 +1,49 @@
+html {width: 100%;height: 100%;overflow: visible;}
+body {font-size: 12px;margin: 0;width: 100%;height: 100%;font-family: Arial,\5b8b\4f53,\5FAE\8F6F\96C5\9ED1;background: #fcfcfc;overflow: hidden;}
+ul,li {margin: 0;padding: 0;list-style: none;display: block;}
+.clear {clear: both;}
+a {color: #333333;text-decoration: none;}
+a:hover {color: #2b7baa;text-decoration: underline;}
+img {border: 0;display: block;}
+html,body,div,h1,h2,h3,h4,h5,h6,ul,ol,dl,li,dt,dd,p,blockquote,pre,form,fieldset,table,th,td,input,textarea {margin: 0;padding: 0;}
+input {outline: 0;}
+body {overflow: auto;background-image: url(http://www.vshare.com/img/bg.jpg);}
+.iphone {width: 640px;margin: 0 auto;padding-top: 30px;}
+.iphone .main-pic {position: relative;width: 584px;height: 842px;margin: 0 auto;}
+.iphone .main-pic.m-p-cn {background: url(http://www.vshare.com/img/iphone-cn.png) no-repeat;}
+.iphone .main-pic.m-p-en {background: url(http://www.vshare.com/img/iphone-en.png) no-repeat;}
+.iphone .main-pic .downbtn {position: absolute;width: 260px;height: 82px;top: 556px;cursor: pointer;}
+.iphone .main-pic .downbtn.btn1 {left: 10px;}
+.iphone .main-pic .downbtn.btn2 {left: 317px;}
+.iphone .main-pic .follow-us div {position: absolute;width: 61px;height: 61px;top: 778px;cursor: pointer;}
+.iphone .main-pic .follow-us div.icon-1 {left: 191px;}
+.iphone .main-pic .follow-us div.icon-2 {left: 332px;}
+.iphone .main-pic .follow-us div.icon-3 {left: 193px;}
+.iphone .main-pic .follow-us div.icon-4 {left: 330px;}
+.iphone-big {width: 1280px;margin: 0 auto;padding-top: 60px;}
+.iphone-big .main-pic {position: relative;width: 1208px;height: 1708px;margin: 0 auto;}
+.iphone-big .main-pic.m-p-cn {background: url(http://www.vshare.com/img/iphone-big.png) no-repeat;}
+.iphone-big .main-pic.m-p-en {background: url(http://www.vshare.com/img/iphone-big-en.png) no-repeat;}
+.iphone-big .main-pic .downbtn {position: absolute;width: 525px;height: 158px;top: 1195px;cursor: pointer;}
+.iphone-big .main-pic .downbtn.dl-en {top: 1175px;}
+.iphone-big .main-pic .downbtn.btn1 {left: 32px;}
+.iphone-big .main-pic .downbtn.btn2 {left: 653px;}
+.iphone-big .main-pic .follow-us div {position: absolute;width: 61px;height: 61px;top: 1643px;cursor: pointer;}
+.iphone-big .main-pic .follow-us div.icon-1 {left: 477px;}
+.iphone-big .main-pic .follow-us div.icon-2 {left: 676px;}
+.iphone-big .main-pic .follow-us div.icon-3 {left: 481px;}
+.iphone-big .main-pic .follow-us div.icon-4 {left: 676px;}
+.ipad {width: 1536px;margin: 0 auto;padding-top: 180px;}
+.ipad .main-part {position: relative;width: 1532px;height: 984px;}
+.ipad .main-part.m-p-cn {background: url(http://www.vshare.com/img/ipad-big.png) no-repeat;}
+.ipad .main-part.m-p-en {background: url(http://www.vshare.com/img/ipad-big-en.png) no-repeat;}
+.ipad .main-part .down-btn {position: absolute;width: 376px;height: 100px;left: 1090px;cursor: pointer;}
+.ipad .main-part .down-btn.d-btn1 {top: 400px;}
+.ipad .main-part .down-btn.d-btn2 {top: 527px;}
+.ipad .main-part .down-btn.d-btn3 {top: 407px;}
+.ipad .main-part .down-btn.d-btn4 {top: 535px;}
+.ipad .main-part .f-u-link {position: absolute;width: 61px;height: 61px;cursor: pointer;}
+.ipad .main-part .f-u-link.f-u-1 {left: 618px;top: 923px;}
+.ipad .main-part .f-u-link.f-u-2 {left: 844px;top: 923px;}
+.ipad .main-part .f-u-link.f-u-3 {left: 626px;top: 923px;}
+.ipad .main-part .f-u-link.f-u-4 {left: 834px;top: 923px;}

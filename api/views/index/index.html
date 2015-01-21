@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <title>vShare - Download and install,vShare Solutions to fix flash crashes, support iOS8 iPhone/iPad/iPod Touch</title>
+    <meta name="keywords" content="iOS cracked apps,cracked iOS apps,cracked apps,iphone crack,app store,free apps,cracked apps,iphone jailbreak,ipad jailbreak," />
+    <meta name="description" content="The most popular cracked apps installer for native and jailbroken iOS, supports iPhone, iPad and iPod touch. Countless new apps and games for free download, easy, fast and no need for jailbreak!" />
+    <meta name="keywords" content="vshare appvv" />
+    <meta name="description" contect="Download apps freely">
+    <link type="image/x-icon" rel=icon href="favicon.ico" >
+    <link rel="stylesheet" href="/css/index/vsharebuilt.css">
+    <script src="/js/index/jquery-1.10.2.min.js"></script>
+    <!--[if lte IE 9]>
+    <style>
+        .small-points{
+            display:none;
+        }
+    </style>
+    <![endif]-->
+
+    <script>
+        $(function() {
+            $('.a-choose-lang').click(function() {
+                var lang = $(this).attr('data-value');
+                //alert(lang);
+                $.post("Index/index",{'lang':lang},function(res) {
+                    //alert(res);
+                    //if(re == 'lt') {
+                        location.href = location.href;
+                    //}
+
+                });
+            });
+        });
+    </script>
+</head>
+<body class='rel'>
+<div class="header h56">
+    <div class="nav rel w980 auto">
+        <div class="nav-l fl">
+            <ul class='rel nav-l-ul'>
+                <?php  foreach($this->lang['nav_top'] as $lang) {  ?>
+                    <li class='active'><a href="http://www.vshare.com"><?php echo $lang; ?></a></li>
+                <?php } ?>
+                <!--li class='active'><a href="http://www.vshare.com">iOS</a></li>
+                <li><a href="http://www.vshare.com/android/">Android</a></li>
+                <li><a href="http://apple.vshare.com/" target="_blank">Apps</a></li>
+                <li><a href='http://forum.vshare.com/' target="_blank">Forums</a></li-->
+            </ul>
+        </div>
+        <div class="nav-r fl">
+            <span class='lang rel'>English <i class="iconfont icon-sanjiaoxingzhankai"></i></span>
+        </div>
+        <div class="nav-lang abs">
+            <ul>
+                <?php  foreach($this->valid_langs as $valid_lang_isocode => $valid_lang) {  ?>
+                <li><a class="a-choose-lang" data-value="<?php echo $valid_lang_isocode;?>"><?php echo $valid_lang; ?></a></li>
+                <?php } ?>
+                <!--li class='acitve'><a href='vshares_en.html'>English</a></li>
+                <li><a href='vshares_ar.html'>العربية</a></li-->
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="yyh-main">
+    <div class="m-t w980 auto">
+        <div class="main-t rel w980 auto">
+            <div class="main-l fl rel animated slideInLeft ">
+                <!-- <div class="iphone-pic abs animated slideInLeft"></div> -->
+            </div>
+            <div class="main-r fr animated slideInRight rel">
+                <div class="vsh auto"></div>
+                <p class='mass animated slideInRight mass-en'>Massive genuine applications free to download</p>
+
+                <div class="down abs animated slideInRight">
+                    <div class="w226 fl c005">
+                        <div class='pc-btn'><a class="m-t-btn cp rel "  onclick="redirect_device()"><span class='m-t-btn-text abs'>Download</span></a></div>
+                        <div class='ipad-btn'>
+                            <a class="m-t-btn cp rel" onClick="nojb_redirect_device()">
+                                <span class='m-t-btn-text abs'><i class="iconfont icon-download"></i><span class='txt-down'> &nbsp;Download</span><span class='txt-jail'>(Unjailbroken)</span></span></span>
+                            </a>
+                            <a class="m-t-btn cp rel "  onclick="jb_redirect_device()"><span class='m-t-btn-text abs'><i class="iconfont icon-download"></i> <span class='txt-down'>&nbsp;Download</span><span class='txt-jail'>(Jailbroken)</span></span></a>
+                        </div>
+                        <div class='an-btn'><a class="m-t-btn cp rel " href='http://ad-dl.appvv.com/appweb/upload/vShareMark_v151.apk'><span class='m-t-btn-text abs'>Download</span></a></div>
+                        <div class="code abs"></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="ios-sicon sicon"></div>
+            <div class="an-sicon sicon"></div>
+        </div>
+    </div>
+    <div class="small-points">
+        <div class="spblue sps animateds bounceoutleft"></div>
+        <div class="spgreen sps animateds bounceoutright"></div>
+    </div>
+    <div class="m-b">
+        <div class="main-b  w980 auto animated fadeIn">
+            <ul class='main-b-bg ovh'>
+                <li class='pct33 fl mbbg1'></li>
+                <li class='pct33 fl mbbg2'></li>
+                <li class='pct33 fl mbbg3'></li>
+            </ul>
+            <ul>
+                <li class='pct33 fl tal'>
+                    <p class='m-b-tit  p-l pl10 tac'><?php echo $this->lang['Intelligent']; ?></p>
+                    <p class='c7c p-l pl10'>World’s first app download platform that is native & jailbroken compatible.</p>
+                </li>
+
+                <li class='pct33 fl'>
+                    <p class='m-b-tit  middle p-m tac'>Massive</p>
+                    <p class='c7c middle p-m tac'>Top speed release everyday,Permanent free download.</p>
+                </li>
+                <li class='pct33 fl'>
+                    <p class='m-b-tit p-r tac'>New Experiences </p>
+                    <p class='c7c  p-r tal'>A new flat design, simple atmosphere, a friendly user experience.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="cl"></div>
+</div>
+<div class="footer">
+
+    <div class="f-follow">
+        <div class='fr law-about'>
+            <p class='b f18'><a href="privacy.html">Privacy policy</a> | <a href="safety.html">Uninstall Information</a> | <a href="law.html">Terms of Use</a> | <a href="contact.html">About Us</a><br/><a href="refunds.html">Returns & Refunds</a> | <a href="contact.html">Contact Us</a></p>
+            <p>2011-2014 &nbsp;vShare.</p>
+        </div>
+        <ul class='fl'>
+            <li ><a class='tac' href="http://twitter.com/#!/app_vv" target="_blank"><i class='iconfont icon-Twitter'></i></a></li>
+            <li ><a class='tac' href="mailto:biz@appvv.com" target="_blank"><i class='iconfont icon-youjian'></i></a></li>
+            <li ><a class='tac' href="http://www.facebook.com/appvv.vshare" target="_blank"><i class='iconfont icon-Facebook'></i></a></li>
+        </ul>
+    </div>
+
+</div>
+<!-- <div class="close"></div> -->
+<!--
+<div class="tips" style="padding-top:50px;">
+    <div class="tip-txt">Dear vShare users,<br/>
+        To <font style="color:#FEE662;">unjailbroken</font> user, please follow the tempory solution below, if you fail to install vShare / our apps or face flash crashes issue.<br/>
+        Step 1. Set your phone date to <font style="color:#FEE662;">Sept 1st, 2014</font>, before installing an app.<br/>
+        <img src="/img/index/step1.png" ><br/>
+        Step 2.  Switch “Date & Time” back to "<font style="color:#FEE662;">Set automatically</font>", when the app runs correctly.<br/>
+        <img src="/img/index/step2.png" ><br/>
+        To <font style="color:#FEE662;">jailbroken</font> users, you can use our vShare & apps normally as before without any additional operations.
+    </div>
+</div> -->
+<!-- <div class="shadow"></div>	 -->
+
+<script src="/js/index/jquery-1.10.2.min.js"></script>
+<script src="/js/index/vshare.js"></script>
+<div style='display:none;'><script src="http://s4.cnzz.com/stat.php?id=5911843&web_id=5911843" language="JavaScript"></script></div>
+<div style='display:none;'><script type="text/javascript">
+        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fc53df48928dcf41e047a6c95a6b4d205' type='text/javascript'%3E%3C/script%3E"));
+    </script></div>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-55629419-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+<script>(function() {
+        var _fbq = window._fbq || (window._fbq = []);
+        if (!_fbq.loaded) {
+            var fbds = document.createElement('script');
+            fbds.async = true;
+            fbds.src = '//connect.facebook.net/en_US/fbds.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(fbds, s);
+            _fbq.loaded = true;
+        }
+        _fbq.push(['addPixelId', '259145967605337']);
+    })();
+    window._fbq = window._fbq || [];
+    window._fbq.push(['track', 'PixelInitialized', {}]);
+</script>
+<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=259145967605337&amp;ev=NoScript" /></noscript>
+</body>
+</html>
