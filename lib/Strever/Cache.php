@@ -33,14 +33,14 @@ class Cache {
     }
 
     public static function set($key,$value) {
-        $cache_file = self::$_cachePath . $key . '.txt';
+        $cache_file = self::$_cachePath . '/' . $key . '.txt';
         if($value !== '') {
             file_put_contents($cache_file,serialize($value));
         }
     }
 
     public static function get($key) {
-        $cache_file = self::$_cachePath . $key . '.txt';
+        $cache_file = self::$_cachePath . '/' . $key . '.txt';
         if(file_exists($cache_file)) {
             return unserialize(file_get_contents($cache_file));
         }else return false;

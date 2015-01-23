@@ -15,8 +15,8 @@ define("__APP__",__ROOT__ . '/api');
 define("CACHE_PATH",__DATA__ . '/cache');
 
 
-$app = new Yaf\Application(__ROOT__ . "/conf/application.ini");
 try{
+    $app = new Yaf\Application(__ROOT__ . "/conf/application.ini");
     $app->bootstrap()
         ->run();
 }catch(Yaf\Exception $e) {

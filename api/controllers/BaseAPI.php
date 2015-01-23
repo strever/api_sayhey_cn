@@ -33,7 +33,7 @@ class BaseAPIController extends Controller_Abstract {
         $this->verifyFormat();
 
         //验证接口权限
-        $this->auth();
+        //$this->auth();
 
         $this->controllerName = $this->getRequest()->getControllerName();
         $this->actionName = $this->getRequest()->getActionName();

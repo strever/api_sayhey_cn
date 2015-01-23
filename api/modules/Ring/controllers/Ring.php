@@ -33,10 +33,12 @@ class RingController extends BaseRingController {
         Response::show($rings);
     }
 
-    public function getByGenreAction() {
-        $genre_id = $this->getRequest()->getParam('genre');
-        $genre_id = $genre_id?$genre_id:1;
-        $rings = $this->model->getByGenreId(intval($genre_id));
+    public function getByGenreIdAction() {
+        $genre_id = $this->getRequest()->getParam('genreId');
+        $currentPage = $this->getRequest()->getParam('pn');
+        $genre_id = intval($genre_id)?$genre_id:1;
+        $currentPage = intval($currentPage)?$currentPage:1;
+        $rings = $this->model->getByGenreId($genre_id,$currentPage);
         Response::show($rings);
     }
 

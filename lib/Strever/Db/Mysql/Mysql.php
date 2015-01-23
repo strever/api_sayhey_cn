@@ -54,6 +54,11 @@ class Mysql {
         } else return false;
     }
 
+    /**
+     * 用于SELECT查询
+     * @param $sql
+     * @return mixed 返回关联数组结果集
+     */
     public static function query($sql) {
         if(!is_null(self::$stmt)) {
             self::free();
@@ -71,6 +76,33 @@ class Mysql {
 
     }
 
+    /**
+     * 用于SELECT查询
+     * @param $sql
+     * @return mixed 返回关联数组结果集的第一条记录
+     */
+    public static function fetch($sql) {
+        if(!is_null(self::$stmt)) {
+            self::free();
+        }
+        self::$sql = $sql;
+        try{
+            self::$stmt = self::$dbh->query(self::$sql);
+        }catch (\PDOException $e) {
+            Response::error($e->getCode(),$e->getMessage() . ', Query String: ' . self::$sql);
+        }
+        self::$rowCount = self::$stmt->rowCount();
+        if(self::$rowCount >= 1) {
+            return self::$stmt->fetch(\PDO::FETCH_ASSOC);
+        }else Response::error('433','没有符合条件的记录; Query String: ' . self::$sql );
+
+    }
+
+    /**
+     * 用于执行UPDATE、INSERT、DELETE
+     * @param $sql
+     * @return mixed 成功时返回true；失败返回false
+     */
     public static function execute($sql) {
         if(!is_null(self::$stmt)) {
             self::free();
@@ -80,7 +112,8 @@ class Mysql {
             self::$stmt = self::$dbh->prepare($sql);
             return self::$stmt->execute();
         }catch (\PDOException $e) {
-            Response::error($e->getCode(),$e->getMessage() . ',"Query String: "' . self::$sql);
+            Response::error($e->getCode(),$e->getMessage() . ',"Query String: "' . self::$sql);  //测试用,部署时记得注释掉
+            //Response::error($e->getCode(),$e->getMessage());
         }
 
     }
@@ -131,16 +164,15 @@ class Mysql {
         $order = ($order) ? " ORDER BY $order" : '';
         $limit = (($count && $offset) ? " LIMIT $offset,$count" :($count?" LIMIT $count":''));
         $sql = "SELECT $fields FROM " . $this->_table . $whereStr . $order . $limit;
-        self::$sql = $sql;
         //echo $sql;
         return self::query($sql);
     }
 
-    public function fetchRow($where = '') {
+    public function fetchRow($fields,$where = '') {
+        $fields = !empty($fields)?self::parseFields($fields):'*';
         $whereStr = self::parseWhere($where);
-        $sql = "SELECT * FROM " . $this->_table . $whereStr;
-        echo $sql;
-        return self::query($sql);
+        $sql = "SELECT $fields FROM " . $this->_table . $whereStr . ' LIMIT 1';
+        return self::fetch($sql);
     }
 
     public function insert($values) {
@@ -165,6 +197,11 @@ class Mysql {
         die;
     }
 
+    /**
+     * @param array $set
+     * @param string $where
+     * @return bool 成功返回受影响的行数，失败返回false
+     */
     public function update(array $set, $where = '') {
         $arr = array ();
         foreach ( $set as $col => $val ) {
@@ -179,12 +216,49 @@ class Mysql {
         }else return false;
     }
 
+    /**
+     * @param string $where
+     * @return mixed 成功返回受影响的行数，失败返回false
+     */
     public function delete($where = '') {
         $whereStr = self::parseWhere($where);
         $sql = "DELETE FROM " . $this->_table . $whereStr;
-        if(self::execute($sql))
-        echo $affectedRow = self::$dbh->exec($sql);
-        return $affectedRow;
+        if(self::execute($sql)) {
+            $affectedRow = self::$dbh->exec($sql);
+            return $affectedRow;
+        }else return false;
+
+    }
+
+    public function count($where='') {
+        $whereStr = self::parseWhere($where);
+        $sql = "SELECT count(*) as count FROM " . $this->_table . $whereStr . ' LIMIT 1';
+        $row = self::fetch($sql);
+        return $row['count'];
+    }
+
+    public function paginator($fields = '*', $where = '', $order = '', $perPageRowCount = 20, $currentPage =1) {
+        $totalRowCount = $this->count($where);
+        $totalPage = ceil ( $totalRowCount / $perPageRowCount );
+        $prevPage = ($currentPage > 1)?($currentPage - 1):1;
+        $nextPage = ($currentPage < $totalPage)?($currentPage + 1):$totalPage;
+
+        $offset = ($currentPage - 1) * $perPageRowCount;
+        $currentPageRows = $this->fetchAll($fields, $where,$order,$perPageRowCount,$offset);
+        $currentPageRowsCount = count($currentPageRows);
+
+        $retVal = array(
+            'rowOffset'           =>   $offset,
+            'totalRowCount'       =>   $totalRowCount,
+            'perPageRowCount'     =>   $perPageRowCount,
+            'totalPage'           =>   $totalPage,
+            'prevPage'            =>   $prevPage,
+            'currentPage'         =>   $currentPage,
+            'nextPage'            =>   $nextPage,
+            'currentPageRowsCount'=>   $currentPageRowsCount,
+            'currentPageRows'     =>   $currentPageRows,
+        );
+        return $retVal;
     }
 
     public static function free() {

@@ -27,11 +27,13 @@ class RingModel extends Mysql {
         return $rings = $this->fetchAll(self::$fields,null,$order,$rowCount);
     }
 
-    public function getByGenreId($genreId = 1,$order='DL_NUM',$rowCount = 20){
+    public function getByGenreId($genreId = 1,$currentPage = 1, $order='DL_NUM',$rowCount = 20){
         $where = array(
             'genre_id'       =>   $genreId,
         );
         $order = $this->orderBy($order);
+        return $this->paginator(self::$fields,$where,$order,$rowCount,$currentPage);
+        return $this->count($where);
         return $this->fetchAll(self::$fields,$where,$order,$rowCount);
     }
 
