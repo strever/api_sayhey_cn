@@ -13,7 +13,8 @@ namespace Ring;
 use \Strever\Db\Mysql\Mysql;
 class RingModel extends Mysql {
     protected $_table = 'ring';
-    protected static $fields = array('ring_id','singer_id','title','length','addtime','download_num');
+    protected static $fields = array('ring_id','singer_id','genre_id','title','length','addtime','download_num');
+    protected static $_host = 'http://ring.appvv.com';
 
 
     public function getBYTime($increase = false,$rowCount = 20) {
@@ -33,8 +34,6 @@ class RingModel extends Mysql {
         );
         $order = $this->orderBy($order);
         return $this->paginator(self::$fields,$where,$order,$rowCount,$currentPage);
-        return $this->count($where);
-        return $this->fetchAll(self::$fields,$where,$order,$rowCount);
     }
 
     public function getRandomByGenreId($genre_id,$rowCount = 20) {
@@ -46,6 +45,14 @@ class RingModel extends Mysql {
             $retVal[] = $rings[$key];
         }
         return $retVal;
+    }
+
+    public function getDlLink($hash,$types = 'mp3') {
+        $retVal = array();
+        foreach( (array)$types as $type ) {
+            $retVal[$type] = self::$_host . "/{$hash}.{$type}";
+        }
+        return is_array( $types ) ? $retVal : $retVal[$types];
     }
 
     public function orderBy($sort) {

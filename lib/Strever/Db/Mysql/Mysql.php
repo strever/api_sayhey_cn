@@ -237,7 +237,7 @@ class Mysql {
         return $row['count'];
     }
 
-    public function paginator($fields = '*', $where = '', $order = '', $perPageRowCount = 20, $currentPage =1) {
+    public function paginator($fields = '*', $where = '', $order = '', $perPageRowCount = 20, $currentPage = 1) {
         $totalRowCount = $this->count($where);
         $totalPage = ceil ( $totalRowCount / $perPageRowCount );
         $prevPage = ($currentPage > 1)?($currentPage - 1):1;
