@@ -18,6 +18,6 @@ class GenreModel extends Mysql {
 
 
     public function getGenres() {
-        return $this->fetchAll('genre_id,name,pinyin',null,'sort DESC',10);
+        return $this->fetchAll('genre_id,name,pingyin',null,'sort DESC',10);
     }
 }
