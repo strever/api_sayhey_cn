@@ -20,7 +20,10 @@ class GenreController extends BaseRingController {
     public function getByPinyinAction() {
         $pinyin = $this->getRequest()->getParam('genre');
         $pinyin = empty($pinyin)?"gaoxiao":addslashes($pinyin);
-        return $this->model->getByPingyin($pinyin);
+        $genre =  $this->model->getByPingyin($pinyin);
+        $ringModel = new \Ring\RingModel();
+        $rins = $ringModel->getByGenreId($genre[0]['genre_id']);
+        \Strever\API\Response::show($rins);
     }
 
 
