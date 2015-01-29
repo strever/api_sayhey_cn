@@ -28,7 +28,7 @@ class RingModel extends Mysql {
         return $rings = $this->fetchAll(self::$fields,null,$order,$rowCount);
     }
 
-    public function getByGenreId($genreId = 1,$currentPage = 1, $order='DL_NUM',$rowCount = 20){
+    public function getByGenreId($genreId = 1,$currentPage = 1,$duration = 'TOTAL', $order='DL_NUM',$rowCount = 20){
         $where = array(
             'genre_id'       =>   $genreId,
         );
@@ -72,6 +72,17 @@ class RingModel extends Mysql {
                 $order = 'download_num DESC';
         }
         return $order;
+    }
+
+    public function duration($duration = 'WEEK') {
+        switch($duration) {
+            case 'WEEK':
+                break;
+            case 'MONTH':
+                break;
+            case 'Total':
+                break;
+        }
     }
 
 }
