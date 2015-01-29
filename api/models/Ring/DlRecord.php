@@ -29,7 +29,7 @@ class DlRecordModel extends Mysql {
             foreach(range(1,$ring['download_num']) as $i) {
                 $hour = rand(8,24);$minute = rand(0,59);$second =rand(0,59);$day = rand(1,29);$months = array('2014-11','2014-12','2015-01');$month = $months[array_rand($months)];
                 $dlTime = strtotime("$month-$day $hour:$minute:$second");
-                $sql = "INSERT INTO ring_dlrecord(ring_id,dltime) VALUES($ring[ring_id],$dlTime)" . "<br>";
+                $sql = "INSERT INTO ring_dlrecord(ring_id,dltime) VALUES($ring[ring_id],$dlTime)";
                 $dbh->exec($sql) or die(print_r($dbh->errorInfo(), true));
             }
         }
