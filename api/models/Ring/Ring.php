@@ -13,7 +13,7 @@ namespace Ring;
 use \Strever\Db\Mysql\Mysql;
 class RingModel extends Mysql {
     protected $_table = 'ring';
-    protected static $fields = array('ring_id','singer_id','genre_id','title','length','addtime','download_num');
+    protected static $fields = array('ring_id','singer_id','genre_id','title','length','addtime','download_num','hash');
     protected static $_host = 'http://ring.appvv.com';
 
 
