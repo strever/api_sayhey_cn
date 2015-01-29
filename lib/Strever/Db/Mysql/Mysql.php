@@ -137,7 +137,7 @@ class Mysql {
                         case 'in'  :$whereStr .= '`' .key($v) . '` IN (' . join(',',$v[key($v)]) . ') AND ';break;
                         case 'gteq':$whereStr .= '`' .key($v) . '`>=' . $v[key($v)] . 'AND ';break;
                     }
-                }else $whereStr .= "`$k`=$v AND ";
+                }else $whereStr .= "`$k`='$v' AND ";
             }
             $whereStr = substr($whereStr,0,-5);
         }elseif(is_string($where)) {
