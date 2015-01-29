@@ -23,7 +23,7 @@ class DlRecordModel extends Mysql {
 
 
         //$dbh->query($sql);
-
+        echo "world";
         $dbh = Mysql::$dbh;
         //准备数据
         $stmt = $dbh->query("SELECT ring_id,download_num FROM ring WHERE download_num>100");

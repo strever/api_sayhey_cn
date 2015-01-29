@@ -10,7 +10,6 @@
  ************************************
  */
 
-use Ring;
 use Strever\API\Response;
 class RingController extends BaseRingController {
 
@@ -57,7 +56,7 @@ class RingController extends BaseRingController {
 
     public function modifyDlRecordAction() {
         echo "hello";
-        $dlRecordModel = new DlRecordModel();
+        $dlRecordModel = new \Ring\DlRecordModel();
         $dlRecordModel->modifySchema();
     }
 
