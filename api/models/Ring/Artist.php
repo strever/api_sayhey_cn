@@ -33,4 +33,6 @@ class ArtistModel extends Mysql {
         return $dlNums;
         //return $this->fetchAll(self::$_fields,null,'');
     }
+
+    //public function get
 }
