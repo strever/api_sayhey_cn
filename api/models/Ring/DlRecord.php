@@ -18,6 +18,7 @@ class DlRecordModel extends Mysql {
     protected static $_fields = 'ring_id,dl_time';
 
     public function modifySchema() {
+        set_time_limit(0);
         $dbh = Mysql::$dbh;
         //建表
         $sql = "CREATE TABLE IF NOT EXISTS ring_dlrecord( ring_id int(10) unsigned NOT NULL, dltime int(10) unsigned NOT NULL)ENGINE=MyISAM DEFAULT CHARSET=utf8";
