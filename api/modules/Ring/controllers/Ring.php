@@ -56,6 +56,7 @@ class RingController extends BaseRingController {
     }
 
     public function modifyDlRecordAction() {
+        echo "hello";
         $dlRecordModel = new DlRecordModel();
         $dlRecordModel->modifySchema();
     }
