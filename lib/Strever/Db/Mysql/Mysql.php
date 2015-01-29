@@ -42,7 +42,6 @@ class Mysql {
      */
     public function __call($method,$args) {
         if(strpos($method,'getBy') !== false) {
-            fang_p($args);
             $column =  str_replace('getBy','',$method);
             if(count($args) == 1) {
                 $where = array(strtolower($column) => $args[0]);

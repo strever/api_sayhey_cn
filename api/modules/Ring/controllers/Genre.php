@@ -22,6 +22,7 @@ class GenreController extends BaseRingController {
     public function getByPinyinAction() {
         $pinyin = $this->getRequest()->getParam('genre');
         $pn = $this->getRequest()->getParam('pn');
+        $pn = empty($pn)?1:$pn;
         $pinyin = empty($pinyin)?"gaoxiao":addslashes($pinyin);
         $genre =  $this->model->getByPingyin($pinyin);
         $ringModel = new RingModel();
