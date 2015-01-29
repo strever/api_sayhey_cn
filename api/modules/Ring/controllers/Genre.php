@@ -19,7 +19,7 @@ class GenreController extends BaseRingController {
 
     public function getByPinyinAction() {
         $pinyin = $this->getRequest()->getParam('genre');
-        if(empty($pinyin)) $pinyin = "gaoxiao";
+        if(!empty($pinyin)) $pinyin = "gaoxiao";
         return $this->model->getByPingyin(mysql_real_escape_string($pinyin));
     }
 
