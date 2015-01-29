@@ -42,10 +42,12 @@ class Mysql {
      */
     public function __call($method,$args) {
         if(strpos($method,'getBy') !== false) {
+            fang_p($args);
             $column =  str_replace('getBy','',$method);
             if(count($args) == 1) {
                 $where = array(strtolower($column) => $args[0]);
             }else $where = array('in' =>array(strtolower($column)=>$args));
+
             return $rings = $this->fetchAll('*',$where,'',20);
         }elseif(preg_match('/get(.*)By(.*)$/',$method,$matches)) {
             $field = strtolower($matches[1]);
