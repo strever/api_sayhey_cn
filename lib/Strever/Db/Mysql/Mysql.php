@@ -48,7 +48,7 @@ class Mysql {
                 $where = array(strtolower($column) => $args[0]);
             }else $where = array('in' =>array(strtolower($column)=>$args));
 
-            return $rings = $this->fetchAll('*',$where,'',20);
+            return $rings = $this->fetchAll('',$where,'',20);
         }elseif(preg_match('/get(.*)By(.*)$/',$method,$matches)) {
             $field = strtolower($matches[1]);
             $where = array('in' =>array(strtolower($matches[2])=>$args));
