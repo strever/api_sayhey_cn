@@ -19,7 +19,7 @@ class DlRecordModel extends Mysql {
 
     public function modifySchema() {
         //建表
-        //$sql = "CREATE TABLE `ring_dlrecord`( `ring_id` int(10) unsigned NOT NULL, `dltime` int(10) unsigned NOT NULL,PRIMARY KEY (`ring_id`))ENGINE=MyISAM DEFAULT CHARSET=utf8";
+        //$sql = "CREATE TABLE `ring_dlrecord`( `ring_id` int(10) unsigned NOT NULL, `dltime` int(10) unsigned NOT NULL)ENGINE=MyISAM DEFAULT CHARSET=utf8";
 
 
         //$dbh->query($sql);
@@ -32,7 +32,7 @@ class DlRecordModel extends Mysql {
             foreach(range(1,$ring['download_num']) as $i) {
                 $hour = rand(8,24);$minute = rand(0,59);$second =rand(0,59);$day = rand(1,29);$months = array('2014-11','2014-12','2015-01');$month = $months[array_rand($months)];
                 $dlTime = strtotime("$month-$day $hour:$minute:$second");
-                echo "$month-$day $hour:$minute:$second" . $dlTime . date("Y-m-d H:i:s",$dlTime) . "<br>";
+                echo $sql = "INSERT INTO ring_dlrecord(ring_id,dltime) VALUES($ring[ring_id],$dlTime)" . "<br>";
             }
         }
 
