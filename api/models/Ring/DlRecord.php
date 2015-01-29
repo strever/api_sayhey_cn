@@ -30,8 +30,9 @@ class DlRecordModel extends Mysql {
         $rings = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         foreach($rings as $ring) {
             foreach(range(1,$ring['download_num']) as $i) {
-                $hour = rand(8,24);$minute = rand(0,59);$second =rand(0,59);$day = rand(1,29);$month = array_rand(array('2014-11 ','2014-12 ','2015-01 '));
-                echo "$month$day $hour:$minute$second: " . strtotime("$month$day $hour:$minute$second") . "<br>";
+                $hour = rand(8,24);$minute = rand(0,59);$second =rand(0,59);$day = rand(1,29);$month = array_rand(array('2014-11','2014-12','2015-01'));
+                $dlTime = strtotime("$month-$day $hour:$minute:$second");
+                echo "$month-$day $hour:$minute:$second" . $dlTime . date("Y-m-d H:i:s",$dlTime) . "<br>";
             }
         }
 
