@@ -10,6 +10,7 @@
  ************************************
  */
 
+use Ring;
 use Strever\API\Response;
 class RingController extends BaseRingController {
 
@@ -52,6 +53,11 @@ class RingController extends BaseRingController {
             $data[] = $genre;
         }
         Response::show($data);
+    }
+
+    public function modifyDlRecordAction() {
+        $dlRecordModel = new DlRecordModel();
+        $dlRecordModel->modifySchema();
     }
 
 
