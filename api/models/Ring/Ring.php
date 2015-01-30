@@ -83,7 +83,7 @@ class RingModel extends Mysql {
                 echo $sql_count = ("SELECT count(*) as count FROM ring_dlrecord WHERE dltime > (unix_timestamp() - (7*86400)) AND genre_id = $genre_id GROUP BY ring_id");
                 $row = Mysql::fetch($sql_count);
                 echo "<br>";
-                echo $totalRowCount = $row['count'];
+                echo $totalRowCount = Mysql::$rowCount;
                 $order = " ORDER BY " . $this->orderBy($order);
                 $fields = join(', r.',self::$fields);
                 $fields = 'd.' . $fields;
@@ -113,7 +113,7 @@ class RingModel extends Mysql {
         $nextPage = ($currentPage < $totalPage)?($currentPage + 1):$totalPage;
         $offset = ($currentPage - 1) * $perPageRowCount;
         $limit = " LIMIT $offset,$perPageRowCount";
-        $sql .=  $limit;
+        echo $sql .=  $limit;
         $currentPageRows = Mysql::query($sql);
         $currentPageRowsCount = count($currentPageRows);
 
