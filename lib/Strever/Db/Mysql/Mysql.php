@@ -104,7 +104,7 @@ class Mysql {
 
     public function find($id,$fields = '*') {
         $fields = !empty($fields)?self::parseFields($fields):'*';
-        $sql = "SELECT $fields FROM " . $this->_table . " WHERE " . $this->_primary . " = $id";
+        echo $sql = "SELECT $fields FROM " . $this->_table . " WHERE " . $this->_primary . " = $id";
         return self::fetch($sql);
     }
 
