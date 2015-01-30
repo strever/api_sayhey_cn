@@ -20,13 +20,12 @@ class GenreController extends BaseRingController {
     }
 
     public function getByPinyinAction() {
-        $pinyin = $this->getRequest()->getParam('genre');
-        $pn = $this->getRequest()->getParam('pn');
-        $pn = empty($pn)?1:$pn;
-        $pinyin = empty($pinyin)?"gaoxiao":addslashes($pinyin);
+        $pinyin = $this->getRequest()->getParam('genre',"gaoxiao");
+        $pn = $this->getRequest()->getParam('pn',1);
+        $duration = $this->getRequest()->getParam('duration','TOTAL');
         $genre =  $this->model->getByPingyin($pinyin);
         $ringModel = new RingModel();
-        $rings = $ringModel->getByGenreId($genre[0]['genre_id'],$pn);
+        $rings = $ringModel->getByGenreId($genre[0]['genre_id'],$pn,$duration);
         Response::show($rings);
     }
 

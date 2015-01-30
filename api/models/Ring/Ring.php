@@ -32,6 +32,7 @@ class RingModel extends Mysql {
         $where = array(
             'genre_id'       =>   $genreId,
         );
+        $where = array_merge($where,self::duration($duration));
         $order = $this->orderBy($order);
         return $this->paginator(self::$fields,$where,$order,$rowCount,$currentPage);
     }
@@ -77,12 +78,16 @@ class RingModel extends Mysql {
     public function duration($duration = 'WEEK') {
         switch($duration) {
             case 'WEEK':
+                $where = array('lt'=>array('dltime'=>(7*86400)));
                 break;
             case 'MONTH':
+                $where = array('lt'=>array('dltime'=>(30*86400)));
                 break;
             case 'Total':
+                $where = array();
                 break;
         }
+        return $where;
     }
 
 }

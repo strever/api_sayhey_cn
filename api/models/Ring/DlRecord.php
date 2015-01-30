@@ -17,6 +17,7 @@ class DlRecordModel extends Mysql {
     protected $_table = "ring_dlrecord";
     protected static $_fields = 'ring_id,dl_time';
 
+    /*
     public function modifySchema() {
         set_time_limit(0);
         $dbh = Mysql::$dbh;
@@ -35,5 +36,6 @@ class DlRecordModel extends Mysql {
             }
         }
     }
+    */
 }
  

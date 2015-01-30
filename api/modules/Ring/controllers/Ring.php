@@ -54,11 +54,5 @@ class RingController extends BaseRingController {
         Response::show($data);
     }
 
-    public function modifyDlRecordAction() {
-        echo "hello";
-        $dlRecordModel = new \Ring\DlRecordModel();
-        $dlRecordModel->modifySchema();
-    }
-
 
 }
