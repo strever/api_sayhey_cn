@@ -77,7 +77,7 @@ class RingModel extends Mysql {
         return $order;
     }
 
-    public function duration($duration = 'WEEK',$genre_id = 1,$currentPage) {
+    public function duration($duration = 'WEEK',$genre_id = 1,$currentPage,$perPageRowCount = 20) {
         switch($duration) {
             case 'WEEK':
                 $duration_time = 7*86400;
@@ -95,10 +95,10 @@ class RingModel extends Mysql {
         $fields = join(', r.',self::$fields);
         $fields = 'd.' . $fields . ', count(*) as download_num';
         $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - ($duration_time)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id ORDER BY download_num DESC";
-        return self::page($sql,$totalRowCount,$currentPage);
+        return self::page($sql,$totalRowCount,$currentPage,$perPageRowCount);
     }
 
-    public function page($sql,$totalRowCount, $perPageRowCount = 20, $currentPage = 1) {
+    public function page($sql,$totalRowCount, $currentPage = 1, $perPageRowCount = 20) {
         $totalPage = ceil ( $totalRowCount / $perPageRowCount );
         $prevPage = ($currentPage > 1)?($currentPage - 1):1;
         $nextPage = ($currentPage < $totalPage)?($currentPage + 1):$totalPage;
