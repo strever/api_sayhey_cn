@@ -80,20 +80,24 @@ class RingModel extends Mysql {
     public function duration($duration = 'WEEK',$genre_id = 1,$order) {
         switch($duration) {
             case 'WEEK':
-                echo $sql_count = ("SELECT count(*) as count FROM ring_dlrecord WHERE dltime > (unix_timestamp() - (7*86400)) AND genre_id = $genre_id GROUP BY ring_id");
+                $sql_count = ("SELECT count(*) as count FROM ring_dlrecord WHERE dltime > (unix_timestamp() - (7*86400)) AND genre_id = $genre_id GROUP BY ring_id");
                 $row = Mysql::fetch($sql_count);
                 $total = $row['count'];
-                echo "<br>";
-
                 $order = " ORDER BY " . $this->orderBy($order);
-
                 $fields = join(', r.',self::$fields);
-                echo $fields = 'd.' . $fields;
+                $fields = 'd.' . $fields;
                 $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - (7*86400)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id $order";
                 return self::page($sql,$total);
                 break;
             case 'MONTH':
-                $where = array('lt'=>array('dltime'=>(30*86400)));
+                $sql_count = ("SELECT count(*) as count FROM ring_dlrecord WHERE dltime > (unix_timestamp() - (30*86400)) AND genre_id = $genre_id GROUP BY ring_id");
+                $row = Mysql::fetch($sql_count);
+                $total = $row['count'];
+                $order = " ORDER BY " . $this->orderBy($order);
+                $fields = join(', r.',self::$fields);
+                $fields = 'd.' . $fields;
+                $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - (30*86400)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id $order";
+                return self::page($sql,$total);
                 break;
             case 'Total':
                 $where = array();
@@ -106,12 +110,9 @@ class RingModel extends Mysql {
         $totalPage = ceil ( $totalRowCount / $perPageRowCount );
         $prevPage = ($currentPage > 1)?($currentPage - 1):1;
         $nextPage = ($currentPage < $totalPage)?($currentPage + 1):$totalPage;
-
         $offset = ($currentPage - 1) * $perPageRowCount;
-
         $limit = " LIMIT $offset,$perPageRowCount";
-        echo "<br>";
-        echo $sql .=  $limit;
+        $sql .=  $limit;
         $currentPageRows = Mysql::query($sql);
         $currentPageRowsCount = count($currentPageRows);
 
