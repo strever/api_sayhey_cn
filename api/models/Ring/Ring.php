@@ -100,6 +100,7 @@ class RingModel extends Mysql {
 
     public function page($sql,$totalRowCount, $currentPage = 1, $perPageRowCount = 20) {
         $totalPage = ceil ( $totalRowCount / $perPageRowCount );
+        $currentPage = ($currentPage > $totalPage)?$totalPage:$currentPage;
         $prevPage = ($currentPage > 1)?($currentPage - 1):1;
         $nextPage = ($currentPage < $totalPage)?($currentPage + 1):$totalPage;
         $offset = ($currentPage - 1) * $perPageRowCount;
