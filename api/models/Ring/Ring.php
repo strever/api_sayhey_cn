@@ -34,7 +34,7 @@ class RingModel extends Mysql {
         );
         $order = $this->orderBy($order);
         if(in_array($duration,array('WEEK','MONTH'))) {
-            return $this->duration($duration,$genreId);
+            return $this->duration($duration,$genreId,$currentPage);
         }
         return $this->paginator(self::$fields,$where,$order,$rowCount,$currentPage);
     }
@@ -77,31 +77,25 @@ class RingModel extends Mysql {
         return $order;
     }
 
-    public function duration($duration = 'WEEK',$genre_id = 1) {
+    public function duration($duration = 'WEEK',$genre_id = 1,$currentPage) {
         switch($duration) {
             case 'WEEK':
-                $sql_count = ("SELECT ring_id,count(*) as download_num FROM ring_dlrecord WHERE dltime > (unix_timestamp() - (7*86400)) AND genre_id = $genre_id GROUP BY ring_id");
-                Mysql::fetch($sql_count);
-                $totalRowCount = Mysql::$rowCount;
-                $fields = join(', r.',self::$fields);
-                $fields = 'd.' . $fields . ', count(*) as download_num';
-                $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - (7*86400)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id ORDER BY download_num DESC";
-                return self::page($sql,$totalRowCount);
+                $duration_time = 7*86400;
                 break;
             case 'MONTH':
-                $sql_count = ("SELECT count(*) as count FROM ring_dlrecord WHERE dltime > (unix_timestamp() - (30*86400)) AND genre_id = $genre_id GROUP BY ring_id");
-                $row = Mysql::fetch($sql_count);
-                $total = $row['count'];
-                $fields = join(', r.',self::$fields);
-                $fields = 'd.' . $fields . ', count(*) as download_num';
-                $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - (30*86400)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id ORDER BY download_num DESC";
-                return self::page($sql,$total);
+                $duration_time = 30*86400;
                 break;
             case 'Total':
                 $where = array();
                 break;
         }
-        return $where;
+        $sql_count = ("SELECT ring_id,count(*) as download_num FROM ring_dlrecord WHERE dltime > (unix_timestamp() - ($duration_time)) AND genre_id = $genre_id GROUP BY ring_id");
+        Mysql::fetch($sql_count);
+        $totalRowCount = Mysql::$rowCount;
+        $fields = join(', r.',self::$fields);
+        $fields = 'd.' . $fields . ', count(*) as download_num';
+        $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - ($duration_time)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id ORDER BY download_num DESC";
+        return self::page($sql,$totalRowCount,$currentPage);
     }
 
     public function page($sql,$totalRowCount, $perPageRowCount = 20, $currentPage = 1) {
