@@ -14,4 +14,5 @@ use Strever\Db\Mysql\Mysql;
 
 class ScoreModel extends Mysql {
     protected $_table = 'ring_table';
+    protected $_primary = 'ring_id';
 }

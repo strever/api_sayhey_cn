@@ -15,6 +15,7 @@ use Strever\Db\Mysql\Mysql;
 
 class ArtistModel extends Mysql {
     protected $_table = 'ring_singer';
+    protected $_primary = 'singer_id';
     protected static $_fields = 'singer_id,region,name,index';
 
     public function getHot($rowCount = 15) {

@@ -14,6 +14,16 @@ use Strever\API\Response;
 class RingController extends BaseRingController {
 
     /**
+     * 单条铃声详情
+     */
+    public function getByIdAction() {
+        $ringId = $this->getRequest()->getParam('ringId',1);
+        $ring = $this->model->getById($ringId);
+        Response::show($ring);
+
+    }
+
+    /**
      * genre/getByTime/order/[asc|dec]
      * 最新铃声
      */

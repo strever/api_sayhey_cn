@@ -17,6 +17,7 @@ use Strever\Db\Mysql\PDOMysql;
 
 class Mysql {
     protected  $_table;
+    protected $_primary = 'id';
 
     protected static $dbh;
 
@@ -99,6 +100,12 @@ class Mysql {
             return self::$stmt->fetch(\PDO::FETCH_ASSOC);
         }else Response::error('433','没有符合条件的记录; Query String: ' . self::$sql );
 
+    }
+
+    public function find($id,$fields = '*') {
+        $fields = !empty($fields)?self::parseFields($fields):'*';
+        $sql = "SELECT $fields FROM " . $this->_table . " WHERE " . $this->_primary . " = $id";
+        return self::fetch($sql);
     }
 
     /**

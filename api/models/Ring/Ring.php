@@ -13,9 +13,25 @@ namespace Ring;
 use \Strever\Db\Mysql\Mysql;
 class RingModel extends Mysql {
     protected $_table = 'ring';
+    protected $_primary = 'ring_id';
     protected static $fields = array('ring_id','singer_id','genre_id','title','length','addtime','download_num','hash');
     protected static $_host = 'http://ring.appvv.com';
 
+
+    public function getById($ringId = 1) {
+        $ring = $this->find($ringId,self::$fields);
+        $ring['dl_link'] = $this->getDlLink($ring['hash']);
+
+        //评分
+        $scoreModel = new ScoreModel();
+        $ring['score'] = $scoreModel->find($ringId);
+
+        //歌手信息
+        $artistModel = new ArtistModel();
+        $ring['artist'] = $artistModel->find($ring['sing_id']);
+
+        return $ring;
+    }
 
     public function getBYTime($increase = false,$rowCount = 20) {
         if($increase) $increase = 'ASC'; else $increase = 'DESC';
