@@ -98,7 +98,7 @@ class Mysql {
         self::$rowCount = self::$stmt->rowCount();
         if(self::$rowCount >= 1) {
             return self::$stmt->fetch(\PDO::FETCH_ASSOC);
-        }else Response::error('433','没有符合条件的记录; Query String: ' . self::$sql );
+        }else throw new \Exception("没有符合条件的记录; Query String:". self::$sql,433);//Response::error('433','没有符合条件的记录; Query String: ' . self::$sql );
 
     }
 

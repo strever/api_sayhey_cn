@@ -24,7 +24,11 @@ class RingModel extends Mysql {
 
         //评分
         $scoreModel = new ScoreModel();
-        $ring['score'] = $scoreModel->find($ringId);
+        try {
+            $ring['score'] = $scoreModel->find($ringId);
+        }catch (\Exception $e) {
+            $ring['score'] = 0;
+        }
 
         //歌手信息
         $artistModel = new ArtistModel();
