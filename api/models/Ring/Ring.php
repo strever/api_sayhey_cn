@@ -80,13 +80,12 @@ class RingModel extends Mysql {
     public function duration($duration = 'WEEK',$genre_id = 1) {
         switch($duration) {
             case 'WEEK':
-                echo $sql_count = ("SELECT ring_id,count(*) as download_num FROM ring_dlrecord WHERE dltime > (unix_timestamp() - (7*86400)) AND genre_id = $genre_id GROUP BY ring_id");
+                $sql_count = ("SELECT ring_id,count(*) as download_num FROM ring_dlrecord WHERE dltime > (unix_timestamp() - (7*86400)) AND genre_id = $genre_id GROUP BY ring_id");
                 Mysql::fetch($sql_count);
-                echo "<br>";
-                echo $totalRowCount = Mysql::$rowCount;
+                $totalRowCount = Mysql::$rowCount;
                 $fields = join(', r.',self::$fields);
                 $fields = 'd.' . $fields . ', count(*) as download_num';
-                $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - (7*86400)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id ORDER BY download_num";
+                $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - (7*86400)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id ORDER BY download_num DESC";
                 return self::page($sql,$totalRowCount);
                 break;
             case 'MONTH':
@@ -95,7 +94,7 @@ class RingModel extends Mysql {
                 $total = $row['count'];
                 $fields = join(', r.',self::$fields);
                 $fields = 'd.' . $fields . ', count(*) as download_num';
-                $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - (30*86400)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id ORDER BY download_num";
+                $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - (30*86400)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id ORDER BY download_num DESC";
                 return self::page($sql,$total);
                 break;
             case 'Total':
@@ -111,7 +110,7 @@ class RingModel extends Mysql {
         $nextPage = ($currentPage < $totalPage)?($currentPage + 1):$totalPage;
         $offset = ($currentPage - 1) * $perPageRowCount;
         $limit = " LIMIT $offset,$perPageRowCount";
-        echo $sql .=  $limit;
+        $sql .=  $limit;
         $currentPageRows = Mysql::query($sql);
         $currentPageRowsCount = count($currentPageRows);
 
