@@ -19,7 +19,6 @@ class RingModel extends Mysql {
 
 
     public function getById($ringId = 1) {
-        echo $this->_table;
         $ring = $this->find($ringId,self::$fields);
         $ring['dl_link'] = $this->getDlLink($ring['hash']);
 
