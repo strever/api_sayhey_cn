@@ -80,14 +80,15 @@ class RingModel extends Mysql {
     public function duration($duration = 'WEEK',$genre_id = 1,$order) {
         switch($duration) {
             case 'WEEK':
-                $sql_count = ("SELECT count(*) as count FROM ring_dlrecord WHERE dltime > (unix_timestamp() - (7*86400)) AND genre_id = $genre_id GROUP BY ring_id");
+                echo $sql_count = ("SELECT count(*) as count FROM ring_dlrecord WHERE dltime > (unix_timestamp() - (7*86400)) AND genre_id = $genre_id GROUP BY ring_id");
                 $row = Mysql::fetch($sql_count);
-                $total = $row['count'];
+                echo "<br>";
+                echo $totalRowCount = $row['count'];
                 $order = " ORDER BY " . $this->orderBy($order);
                 $fields = join(', r.',self::$fields);
                 $fields = 'd.' . $fields;
                 $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - (7*86400)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id $order";
-                return self::page($sql,$total);
+                return self::page($sql,$totalRowCount);
                 break;
             case 'MONTH':
                 $sql_count = ("SELECT count(*) as count FROM ring_dlrecord WHERE dltime > (unix_timestamp() - (30*86400)) AND genre_id = $genre_id GROUP BY ring_id");
