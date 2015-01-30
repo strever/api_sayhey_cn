@@ -32,8 +32,10 @@ class RingModel extends Mysql {
         $where = array(
             'genre_id'       =>   $genreId,
         );
-        $where = array_merge($where,self::duration($duration));
         $order = $this->orderBy($order);
+        if(in_array($duration,array('WEEK','MONTH'))) {
+            return $this->duration($duration,$genreId,$order);
+        }
         return $this->paginator(self::$fields,$where,$order,$rowCount,$currentPage);
     }
 
@@ -75,10 +77,17 @@ class RingModel extends Mysql {
         return $order;
     }
 
-    public function duration($duration = 'WEEK') {
+    public function duration($duration = 'WEEK',$genre_id = 1,$order) {
         switch($duration) {
             case 'WEEK':
-                $where = array('lt'=>array('dltime'=>(7*86400)));
+                echo $sql_count = ("SELECT count(*) as count FROM ring_dlrecord WHERE dltime > (unix_timestamp() - (7*86400)) AND genre_id = $genre_id GROUP BY ring_id");
+                $row = Mysql::fetch($sql_count);
+                $total = $row['count'];
+                echo "<br>";
+
+                echo $fields = join(', d.',self::$fields);
+                $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - (7*86400)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id ORDER BY r.download_num";
+                return self::page($sql,$total,$order);
                 break;
             case 'MONTH':
                 $where = array('lt'=>array('dltime'=>(30*86400)));
@@ -88,6 +97,33 @@ class RingModel extends Mysql {
                 break;
         }
         return $where;
+    }
+
+    public function page($sql,$totalRowCount, $order, $perPageRowCount = 20, $currentPage = 1) {
+        $totalPage = ceil ( $totalRowCount / $perPageRowCount );
+        $prevPage = ($currentPage > 1)?($currentPage - 1):1;
+        $nextPage = ($currentPage < $totalPage)?($currentPage + 1):$totalPage;
+
+        $offset = ($currentPage - 1) * $perPageRowCount;
+
+        $limit = " LIMIT $offset,$perPageRowCount";
+        echo "<br>";
+        echo $sql .= $order . $limit;
+        $currentPageRows = Mysql::query($sql);
+        $currentPageRowsCount = count($currentPageRows);
+
+        $retVal = array(
+            'rowOffset'           =>   $offset,
+            'totalRowCount'       =>   $totalRowCount,
+            'perPageRowCount'     =>   $perPageRowCount,
+            'totalPage'           =>   $totalPage,
+            'prevPage'            =>   $prevPage,
+            'currentPage'         =>   $currentPage,
+            'nextPage'            =>   $nextPage,
+            'currentPageRowsCount'=>   $currentPageRowsCount,
+            'currentPageRows'     =>   $currentPageRows,
+        );
+        return $retVal;
     }
 
 }
