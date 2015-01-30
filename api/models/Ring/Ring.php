@@ -34,6 +34,8 @@ class RingModel extends Mysql {
         $artistModel = new ArtistModel();
         $ring['artist'] = $artistModel->find($ring['singer_id']);
 
+        if($ring['genre_id'] == 0) $ring['genre_id'] = 1;
+
         return $ring;
     }
 
