@@ -85,7 +85,7 @@ class RingModel extends Mysql {
                 $total = $row['count'];
                 echo "<br>";
 
-                $order = " ORDER BY " . $this->orderBy($order) . " DESC";
+                $order = " ORDER BY " . $this->orderBy($order);
 
                 $fields = join(', r.',self::$fields);
                 echo $fields = 'd.' . $fields;
