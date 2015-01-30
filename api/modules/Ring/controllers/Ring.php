@@ -18,10 +18,11 @@ class RingController extends BaseRingController {
      * 最新铃声
      */
     public function getByTimeAction() {
-        $order = $this->getRequest()->getParam('order')?$this->getRequest()->getParam('order'):'desc';
+        $order = $this->getRequest()->getParam('order','desc');
+        $rowCount = $this->getRequest()->getParam('rowCount',20);
         if($order == "asc") $order = true;
         if($order == "desc") $order = false;
-        $rings = $this->model->getByTime($order);
+        $rings = $this->model->getByTime($order,$rowCount);
         Response::show($rings);
     }
 
@@ -29,7 +30,8 @@ class RingController extends BaseRingController {
      * 最热铃声
      */
     public function getByDLNumAction() {
-        $rings = $this->model->getByDLNum();
+        $rowCount = $this->getRequest()->getParam('rowCount',20);
+        $rings = $this->model->getByDLNum($rowCount);
         Response::show($rings);
     }
 
