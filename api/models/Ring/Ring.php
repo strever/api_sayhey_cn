@@ -85,7 +85,7 @@ class RingModel extends Mysql {
                 echo "<br>";
                 echo $totalRowCount = Mysql::$rowCount;
                 $fields = join(', r.',self::$fields);
-                $fields = 'd.' . $fields . 'count(*) as download_num';
+                $fields = 'd.' . $fields . ', count(*) as download_num';
                 $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - (7*86400)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id ORDER BY download_num";
                 return self::page($sql,$totalRowCount);
                 break;
@@ -94,7 +94,7 @@ class RingModel extends Mysql {
                 $row = Mysql::fetch($sql_count);
                 $total = $row['count'];
                 $fields = join(', r.',self::$fields);
-                $fields = 'd.' . $fields . 'count(*) as download_num';
+                $fields = 'd.' . $fields . ', count(*) as download_num';
                 $sql = "SELECT $fields FROM ring_dlrecord d,ring r WHERE d.dltime > (unix_timestamp() - (30*86400)) AND d.ring_id = r.ring_id AND d.genre_id = $genre_id GROUP BY d.ring_id ORDER BY download_num";
                 return self::page($sql,$total);
                 break;
