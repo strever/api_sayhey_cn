@@ -32,7 +32,12 @@ class RingModel extends Mysql {
 
         //歌手信息
         $artistModel = new ArtistModel();
-        $ring['artist'] = $artistModel->find($ring['singer_id']);
+        try {
+            $ring['artist'] = $artistModel->find($ring['singer_id']);
+        }catch (\Exception $e) {
+            $ring['artist'] = null;
+        }
+
 
         if($ring['genre_id'] == 0) $ring['genre_id'] = 1;
 
