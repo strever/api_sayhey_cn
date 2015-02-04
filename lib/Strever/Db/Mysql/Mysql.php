@@ -51,10 +51,12 @@ class Mysql {
             return $rings = $this->fetchAll('',$where,'',20);
         }elseif(preg_match('/get(.*)By(.*)$/',$method,$matches)) {
             $field = strtolower($matches[1]);
-            $where = array('in' =>array(strtolower($matches[2])=>$args));
+            $column = strtolower($matches[2]);
+            if(count($args) == 1) {
+                $where = array($column => $args[0]);
+            }else $where = array('in' =>array($column=>$args));
             $order = self::orderBy('DL_NUM');
             return $this->fetchAll($field,$where,$order,20);
-
         } else return false;
     }
 
