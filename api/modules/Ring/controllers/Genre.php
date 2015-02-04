@@ -14,11 +14,6 @@ use Strever\API\Response;
 use Ring\RingModel;
 class GenreController extends BaseRingController {
 
-    public function getGenresAction() {
-        fang_p($this->model->fetchAll());
-        fang_p($this->model);
-    }
-
     public function getByPinyinAction() {
         $pinyin = $this->getRequest()->getParam('genre',"gaoxiao");
         $pn = $this->getRequest()->getParam('pn',1);
@@ -26,9 +21,17 @@ class GenreController extends BaseRingController {
         $duration = $this->getRequest()->getParam('duration','TOTAL');
         $genre =  $this->model->getByPingyin($pinyin);
         $ringModel = new RingModel();
-        $rings = $ringModel->getByGenreId($genre[0]['genre_id'],$pn,strtoupper($duration),$order);
+        $rings = $ringModel->getByGenreId($genre[0]['genre_id'],intval($pn),strtoupper($duration),$order);
         Response::show($rings);
     }
+
+    public function getNameAction() {
+        $pinyin = $this->getRequest()->getParam('genre',"gaoxiao");
+        $name = $this->model->getNameByPingyin($pinyin);
+        Response::show($name);
+    }
+
+
 
 
 }
