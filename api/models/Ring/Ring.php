@@ -38,9 +38,15 @@ class RingModel extends Mysql {
             $ring['artist'] = null;
         }
 
-
+        //分类信息
         if($ring['genre_id'] == 0) $ring['genre_id'] = 1;
-
+        $genreModel = new GenreModel();
+        try{
+            $ring['genre'] = $genreModel->find($ring['genre_id']);
+        }catch (\Exception $e) {
+            $ring['genre'] = null;
+        }
+        
         return $ring;
     }
 
