@@ -14,6 +14,7 @@ use Strever\Db\Mysql\Mysql;
 
 class GenreModel extends Mysql {
     protected $_table = 'ring_genre';
+    protected $_primary = 'genre_id';
     protected static $fields = "parent_id,name";
 
 

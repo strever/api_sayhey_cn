@@ -46,7 +46,7 @@ class RingModel extends Mysql {
         }catch (\Exception $e) {
             $ring['genre'] = null;
         }
-        
+
         return $ring;
     }
 
