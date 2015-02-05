@@ -66,5 +66,11 @@ class RingController extends BaseRingController {
         Response::show($data);
     }
 
+    public function getByArtistIdAction() {
+        $artistId = $this->getRequest()->getParam('artistId',1792);
+        $rings = $this->model->getByArtistId(intval($artistId));
+        Response::show($rings);
+    }
+
 
 }

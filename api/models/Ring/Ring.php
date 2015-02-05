@@ -87,6 +87,18 @@ class RingModel extends Mysql {
         return $retVal;
     }
 
+    public function getByArtistId($artistId = 1792) {
+        //歌手信息
+        $artistModel = new ArtistModel();
+        try {
+            $ring['artist'] = $artistModel->find($artistId);
+        }catch (\Exception $e) {
+            $ring['artist'] = null;
+        }
+        $ring['rings'] = $this->paginator(self::$fields,"singer_id = {$artistId}");
+        return $ring;
+    }
+
     public function getDlLink($hash,$types = 'mp3') {
         $retVal = array();
         foreach( (array)$types as $type ) {
@@ -161,8 +173,8 @@ class RingModel extends Mysql {
     }
 
     /**
-     * 格式化文件大小
-     * @param integer $size 文件字节数
+     * @param $size
+     * @return array
      */
     protected static function parseSize($size) {
         $units = array ('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' );
