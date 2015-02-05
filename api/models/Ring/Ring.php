@@ -73,7 +73,7 @@ class RingModel extends Mysql {
         if(in_array($duration,array('WEEK','MONTH'))) {
             return $this->duration($duration,$genreId,$currentPage);
         }
-        return $this->paginator(self::$fields,$where,$order,$rowCount,$currentPage);
+        return $this->paginator(self::$fields,$where,$currentPage,$order,$rowCount);
     }
 
     public function getRandomByGenreId($genre_id,$rowCount = 20) {
@@ -87,7 +87,7 @@ class RingModel extends Mysql {
         return $retVal;
     }
 
-    public function getByArtistId($artistId = 1792) {
+    public function getByArtistId($artistId = 1792,$currentPage = 1,$order = 'DL_NUM',$rowCount = 20) {
         //歌手信息
         $artistModel = new ArtistModel();
         try {
@@ -95,7 +95,8 @@ class RingModel extends Mysql {
         }catch (\Exception $e) {
             $ring['artist'] = null;
         }
-        $ring['rings'] = $this->paginator(self::$fields,"singer_id = {$artistId}");
+        $order = $this->orderBy($order);
+        $ring['rings'] = $this->paginator(self::$fields,"singer_id = {$artistId}",$currentPage,$order,$rowCount);
         return $ring;
     }
 

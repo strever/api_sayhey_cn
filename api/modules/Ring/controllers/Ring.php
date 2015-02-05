@@ -46,11 +46,11 @@ class RingController extends BaseRingController {
     }
 
     public function getByGenreIdAction() {
-        $genre_id = $this->getRequest()->getParam('genreId');
+        $genreId = $this->getRequest()->getParam('genreId');
         $currentPage = $this->getRequest()->getParam('pn');
-        $genre_id = intval($genre_id)?$genre_id:1;
+        $genreId = intval($genreId)?$genreId:1;
         $currentPage = intval($currentPage)?$currentPage:1;
-        $rings = $this->model->getByGenreId($genre_id,$currentPage);
+        $rings = $this->model->getByGenreId($genreId,$currentPage);
         Response::show($rings);
     }
 
@@ -68,7 +68,8 @@ class RingController extends BaseRingController {
 
     public function getByArtistIdAction() {
         $artistId = $this->getRequest()->getParam('artistId',1792);
-        $rings = $this->model->getByArtistId(intval($artistId));
+        $currentPage = $this->getRequest()->getParam('pn',1);
+        $rings = $this->model->getByArtistId(intval($artistId),intval($currentPage));
         Response::show($rings);
     }
 
