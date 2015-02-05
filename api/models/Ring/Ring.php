@@ -14,7 +14,7 @@ use \Strever\Db\Mysql\Mysql;
 class RingModel extends Mysql {
     protected $_table = 'ring';
     protected $_primary = 'ring_id';
-    protected static $fields = array('ring_id','singer_id','genre_id','title','length','addtime','download_num','hash');
+    protected static $fields = array('ring_id','singer_id','genre_id','title','length','size','addtime','download_num','hash');
     protected static $_host = 'http://ring.appvv.com';
 
 
@@ -46,6 +46,9 @@ class RingModel extends Mysql {
         }catch (\Exception $e) {
             $ring['genre'] = null;
         }
+
+        //处理铃声大小
+        $ring['humanSize'] = self::parseSize($ring['size']);
 
         return $ring;
     }
@@ -154,6 +157,23 @@ class RingModel extends Mysql {
             'currentPageRows'     =>   $currentPageRows,
         );
         return $retVal;
+    }
+
+    /**
+     * 格式化文件大小
+     * @param integer $size 文件字节数
+     */
+    protected static function parseSize($size) {
+        $units = array ('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' );
+        $unitscn = array ('字节', '千字节', '兆字节', '吉字节', '太字节', '拍字节', '艾字节', '泽字节', '尧字节' );
+
+        $unitindex = 0;
+
+        while ( $size > 1024 ) {
+            $size /= 1024;
+            ++ $unitindex;
+        }
+        return array (sprintf ( "%0.2f", $size ), $units [$unitindex], $unitscn [$unitindex] );
     }
 
 }
