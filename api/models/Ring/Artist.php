@@ -35,5 +35,13 @@ class ArtistModel extends Mysql {
         //return $this->fetchAll(self::$_fields,null,'');
     }
 
-    //public function get
+    public function get($region = 1,$category = 1,$status = 1,$rowCount = 20) {
+        $where = array(
+            'region' => $region,
+            'type'   => $category,
+            'status' => $status
+        );
+        return $this->fetchAll(self::$_fields,$where);
+
+    }
 }
