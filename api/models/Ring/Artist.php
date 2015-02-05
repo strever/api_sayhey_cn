@@ -41,7 +41,21 @@ class ArtistModel extends Mysql {
             'type'   => $category,
             'status' => $status
         );
-        return $this->fetchAll(self::$_fields,$where);
+        $artists = $this->fetchAll(self::$_fields,$where);
+        return self::recombineIndex($artists);
 
+    }
+
+    private static function recombineIndex($artists) {
+        $indexes = array_column($artists,'index');
+        $artists_new = array();
+        foreach($indexes as $index) {
+            foreach($artists as $artist) {
+                if($index == $artist['index']) {
+                    $artists_new[$index][] = $artist;
+                }
+            }
+        }
+        return $artists_new;
     }
 }
