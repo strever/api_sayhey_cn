@@ -20,11 +20,10 @@ class ArtistController extends BaseRingController {
         Response::show($artists);
     }
 
-    public function getAction($region = 1,$category = 1,$status = 1,$rowCount = 20) {
+    public function getAction() {
         $region = $this->getRequest()->getParam('region',1);
         $category = $this->getRequest()->getParam('cate',1);
         $artists = $this->model->get($region,$category);
         Response::show($artists);
-
     }
 }
