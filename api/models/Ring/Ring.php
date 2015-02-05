@@ -48,7 +48,8 @@ class RingModel extends Mysql {
         }
 
         //处理铃声大小
-        $ring['humanSize'] = self::parseSize($ring['size']);
+        $size_arr = self::parseSize($ring['size']);
+        $ring['humanSize'] = $size_arr[0] . ' ' . $size_arr[1];
 
         return $ring;
     }
