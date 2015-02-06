@@ -48,7 +48,6 @@ class ArtistModel extends Mysql {
 
     private static function recombineIndex($artists) {
         $indexes = array_unique(array_column($artists,'index'));
-        fang_p($indexes);
         $artists_new = array();
         foreach($indexes as $index) {
             foreach($artists as $artist) {
