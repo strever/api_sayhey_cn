@@ -20,7 +20,6 @@ class RingController extends BaseRingController {
         $ringId = $this->getRequest()->getParam('ringId',1);
         $ring = $this->model->getById($ringId);
         Response::show($ring);
-
     }
 
     /**
@@ -71,6 +70,16 @@ class RingController extends BaseRingController {
         $currentPage = $this->getRequest()->getParam('pn',1);
         $rings = $this->model->getByArtistId(intval($artistId),intval($currentPage));
         Response::show($rings);
+    }
+
+    public function supportAction() {
+        $ring_id = $this->getRequest()->getParam('ringId');
+        if($ring_id) {
+            if($id = $this->model->support(intval($ring_id))) {
+                Response::show($id);
+            }
+        }
+        Response::error(468,"评分失败");
     }
 
 

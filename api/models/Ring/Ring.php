@@ -14,7 +14,7 @@ use \Strever\Db\Mysql\Mysql;
 class RingModel extends Mysql {
     protected $_table = 'ring';
     protected $_primary = 'ring_id';
-    protected static $fields = array('ring_id','singer_id','genre_id','title','length','size','addtime','download_num','hash');
+    protected static $fields = array('ring_id','singer_id','genre_id','title','length','size','addtime','download_num','hash','support');
     protected static $_host = 'http://ring.appvv.com';
 
 
@@ -49,7 +49,7 @@ class RingModel extends Mysql {
 
         //处理铃声大小
         $size_arr = self::parseSize($ring['size']);
-        $ring['humanSize'] = $size_arr[0] . ' ' . $size_arr[1];
+        $ring['humanSize'] = intval($size_arr[0]) . ' ' . $size_arr[1];
 
         return $ring;
     }
@@ -109,6 +109,17 @@ class RingModel extends Mysql {
         $order = $this->orderBy($order);
         $ring['rings'] = $this->paginator(self::$fields,"singer_id = {$artistId}",$currentPage,$order,$rowCount);
         return $ring;
+    }
+
+    /**
+     * 点赞
+     * @param $ring_id
+     */
+    public function support($ring_id) {
+        $sql = "UPDATE `ring` SET `support` = `support`+1 WHERE ring_id = {$ring_id}";
+        if($id = $this->execute($sql)) {
+            return $id;
+        }else return false;
     }
 
     public function getDlLink($hash,$types = 'mp3') {
