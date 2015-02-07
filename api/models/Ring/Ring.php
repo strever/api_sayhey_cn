@@ -79,9 +79,9 @@ class RingModel extends Mysql {
         foreach($pageData['currentPageRows'] as $k => $ring) {
             try {
                 $artist = $artistModel->find($ring['singer_id']);
-                $pageData[$k]['artist_head_pic'] = $artist['head_pic'];
+                $pageData['currentPageRows'][$k]['artist_head_pic'] = $artist['head_pic'];
             }catch (\Exception $e) {
-                $pageData[$k]['artist_head_pic'] = "/artistHeads/0/default.png";
+                $pageData['currentPageRows'][$k]['artist_head_pic'] = "/artistHeads/0/default.png";
             }
         }
         return $pageData;
