@@ -16,13 +16,13 @@ use Strever\Db\Mysql\Mysql;
 class ArtistModel extends Mysql {
     protected $_table = 'ring_singer';
     protected $_primary = 'singer_id';
-    protected static $_fields = 'singer_id,region,name,index';
+    protected static $_fields = 'singer_id,region,name,index,head_pic';
 
     public function getHot($rowCount = 15) {
         $_cache = Cache::getInstance();
-        if(!$_cache::get('artist_gethot')){
+        if($_cache::get('artist_gethot')){
             $db = Mysql::$dbh;
-            $sql = "SELECT s.singer_id,s.name,count(*) as ring_num,sum(r.download_num) as dl_num FROM ring r, ring_singer s WHERE r.singer_id = s.singer_id  GROUP BY r.singer_id ORDER BY dl_num DESC LIMIT $rowCount";
+            $sql = "SELECT s.singer_id,s.name,s.head_pic,count(*) as ring_num,sum(r.download_num) as dl_num FROM ring r, ring_singer s WHERE r.singer_id = s.singer_id  GROUP BY r.singer_id ORDER BY dl_num DESC LIMIT $rowCount";
             $stmt = $db->query($sql);
             $dlNums = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             $_cache::set('artist_gethot',$dlNums);
