@@ -71,9 +71,20 @@ class RingModel extends Mysql {
         );
         $order = $this->orderBy($order);
         if(in_array($duration,array('WEEK','MONTH'))) {
-            return $this->duration($duration,$genreId,$currentPage);
+            $pageData =  $this->duration($duration,$genreId,$currentPage);
+        }else $pageData = $this->paginator(self::$fields,$where,$currentPage,$order,$rowCount);
+
+        //处理歌手图片信息
+        $artistModel = new ArtistModel();
+        foreach($pageData['currentPageRows'] as $k => $ring) {
+            try {
+                $artist = $artistModel->find($ring['singer_id']);
+                $pageData[$k]['artist_head_pic'] = $artist['head_pic'];
+            }catch (\Exception $e) {
+                $pageData[$k]['artist_head_pic'] = "/artistHeads/0/default.png";
+            }
         }
-        return $this->paginator(self::$fields,$where,$currentPage,$order,$rowCount);
+        return $pageData;
     }
 
     public function getRandomByGenreId($genre_id,$rowCount = 20) {
