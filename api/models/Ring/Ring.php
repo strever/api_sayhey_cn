@@ -117,8 +117,7 @@ class RingModel extends Mysql {
      */
     public function support($ring_id) {
         $sql = "UPDATE `ring` SET `support` = `support`+1 WHERE ring_id = {$ring_id}";
-        echo $id = $this->exec($sql);
-        if($id > 0) {
+        if($id = $this->exec($sql)) {
             return $id;
         }else return false;
     }
