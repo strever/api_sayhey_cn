@@ -77,7 +77,7 @@ class RingController extends BaseRingController {
         if($ring_id) {
             if($id = $this->model->support(intval($ring_id))) {
                 Response::show($id);
-            }
+            }else Response::error(468,"评分失败");
         }
         Response::error(468,"评分失败");
     }
