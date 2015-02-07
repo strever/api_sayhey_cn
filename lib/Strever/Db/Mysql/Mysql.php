@@ -130,6 +130,25 @@ class Mysql {
 
     }
 
+    /**
+     * 用于执行UPDATE、INSERT、DELETE
+     * @param $sql
+     * @return mixed 成功时返回true；失败返回false
+     */
+    public static function exec($sql) {
+        if(!is_null(self::$stmt)) {
+            self::free();
+        }
+        self::$sql = $sql;
+        try{
+            self::$rowCount = self::$dbh->exec($sql);
+            return self::$rowCount;
+        }catch (\PDOException $e) {
+            Response::error($e->getCode(),$e->getMessage() . ',"Query String: "' . self::$sql);  //测试用,部署时记得注释掉
+            //Response::error($e->getCode(),$e->getMessage());
+        }
+    }
+
     public static function parseWhere($where) {
         $whereStr = '';
         if(is_array($where)) {
