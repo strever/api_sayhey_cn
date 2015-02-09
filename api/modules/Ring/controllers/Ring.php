@@ -91,5 +91,19 @@ class RingController extends BaseRingController {
         Response::error(468,"评分失败");
     }
 
+    public function downloadAction() {
+        $hash = $this->getRequest()->getParam('hash');
+        $ext = $this->getRequest()->getParam('ext','mp3');
+        //http://ring.appvv.com/$ring[hash].mp3
+        $filename = $hash.'.'.$ext;
+        $dllink = "http://ring.appvv.com/{$filename}";
+        //下载逻辑
+
+        header ( "Content-type: application/octet-stream" );
+        header ( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+
+        // 就这么简单一句话搞定 注意“protected”是和nginx配置文件的 protected要一致
+        header("X-Accel-Redirect: {$dllink}");
+    }
 
 }
