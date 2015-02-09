@@ -151,12 +151,8 @@ class RingModel extends Mysql {
                     'singer_id'=> $ring['singer_id'],
                     'dltime'   => time()
                 );
-                $dlrecordModel->save($data);
-            }
-        }
-
-        if($id = $this->exec($sql)) {
-            return $id;
+                return $dlrecordModel->save($data);
+            }else return false;
         }else return false;
     }
 

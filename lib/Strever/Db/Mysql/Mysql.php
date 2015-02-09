@@ -242,11 +242,11 @@ class Mysql {
             }
             $update = substr($update,0,-1);
             $update .= $whereStr;
-            echo $update;
+            return self::exec($update);
         }else {
             $insert = $insert = 'INSERT INTO `' . $this->_table . '`';
             $insert .= '(`' . implode('`, `',array_keys($values)) . '`) VALUES(\'' . implode('\', \'',array_values($values)) . '\')';
-            echo $insert;
+            return self::exec($insert);
         }
     }
 

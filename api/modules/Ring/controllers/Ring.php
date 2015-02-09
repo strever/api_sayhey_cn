@@ -98,13 +98,12 @@ class RingController extends BaseRingController {
         $filename = $hash.'.'.$ext;
         $dllink = "http://ring.appvv.com/{$filename}";
         //下载逻辑
-        $this->model->updateDlNum($hash);
-        //
-
-        //header("Content-Type: application/force-download");
-        //header("Content-Disposition: attachment; filename=".basename($dllink));
-        //readfile($dllink);
-        exit;
+        if($this->model->updateDlNum($hash)) {
+            header("Content-Type: application/force-download");
+            header("Content-Disposition: attachment; filename=".basename($dllink));
+            readfile($dllink);
+            exit;
+        }
     }
 
 }
