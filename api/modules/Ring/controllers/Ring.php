@@ -44,6 +44,15 @@ class RingController extends BaseRingController {
         Response::show($rings);
     }
 
+    /**
+     * 好评铃声
+     */
+    public function getBySupportAction() {
+        $rowCount = $this->getRequest()->getParam('rowCount',20);
+        $rings = $this->model->getBySupport($rowCount);
+        Response::show($rings);
+    }
+
     public function getByGenreIdAction() {
         $genreId = $this->getRequest()->getParam('genreId');
         $currentPage = $this->getRequest()->getParam('pn');

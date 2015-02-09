@@ -65,6 +65,11 @@ class RingModel extends Mysql {
         return $rings = $this->fetchAll(self::$fields,null,$order,$rowCount);
     }
 
+    public function getBySupport($rowCount = 20) {
+        $order = self::orderBy('SUPPORT');
+        return $rings = $this->fetchAll(self::$fields,null,$order,$rowCount);
+    }
+
     public function getByGenreId($genreId = 1,$currentPage = 1,$duration = 'TOTAL', $order='DL_NUM',$rowCount = 20){
         $where = array(
             'genre_id'       =>   $genreId,
@@ -143,6 +148,10 @@ class RingModel extends Mysql {
                 break;
             case 'RECOMMEND':
                 $order = 'recommend_sort DESC';
+                break;
+            case 'SUPPORT' :
+                $order = 'support DESC';
+                break;
             default:
                 $order = 'download_num DESC';
         }
