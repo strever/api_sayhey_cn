@@ -240,7 +240,7 @@ class Mysql {
             foreach($values as $k => $v) {
                 $update .= '`' . $k . "` = '" . $v . "',";
             }
-            $update = substr($update,-1);
+            $update = substr($update,1,-1);
             $update .= $whereStr;
             echo $update;
         }else {
