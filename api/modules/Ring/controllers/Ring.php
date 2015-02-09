@@ -96,7 +96,7 @@ class RingController extends BaseRingController {
         $ext = $this->getRequest()->getParam('ext','mp3');
         //http://ring.appvv.com/$ring[hash].mp3
         $filename = $hash.'.'.$ext;
-        echo $dllink = "http://ring.appvv.com/{$filename}";
+        $dllink = "http://ring.appvv.com/{$filename}";
         //下载逻辑
 
         //header ( "Content-type: application/octet-stream" );
@@ -104,14 +104,10 @@ class RingController extends BaseRingController {
 
         // 就这么简单一句话搞定 注意“protected”是和nginx配置文件的 protected要一致
         //header("X-Accel-Redirect: {$dllink}");
-        if(is_file($dllink)) {
-            header("Content-Type: application/force-download");
-            header("Content-Disposition: attachment; filename=".basename($dllink));
-            readfile($dllink);
-            exit;
-        }else{
-            Response::error('445','FILE NOT FOUND');
-        }
+        header("Content-Type: application/force-download");
+        header("Content-Disposition: attachment; filename=".basename($dllink));
+        readfile($dllink);
+        exit;
     }
 
 }
