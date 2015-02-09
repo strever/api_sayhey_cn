@@ -23,6 +23,17 @@ class RingController extends BaseRingController {
     }
 
     /**
+     *
+     */
+    public function getByIdsAction() {
+        $ringIds = array(
+            11466,10584,11623,15837,12539,12400,13848,10889,12717,13233
+        );
+        $ring = $this->model->getByIds($ringIds);
+        Response::show($ring);
+    }
+
+    /**
      * genre/getByTime/order/[asc|dec]
      * 最新铃声
      */

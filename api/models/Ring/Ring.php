@@ -54,6 +54,14 @@ class RingModel extends Mysql {
         return $ring;
     }
 
+    public function getByIds($ringIds) {
+        $rings = array();
+        foreach($ringIds as $ringId) {
+            $rings[] = $this->getById($ringId);
+        }
+        return $rings;
+    }
+
     public function getBYTime($increase = false,$rowCount = 20) {
         if($increase) $increase = 'ASC'; else $increase = 'DESC';
         $order = 'addtime ' . $increase;
