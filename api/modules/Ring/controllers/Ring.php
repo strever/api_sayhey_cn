@@ -94,16 +94,24 @@ class RingController extends BaseRingController {
     public function downloadAction() {
         $hash = $this->getRequest()->getParam('hash');
         $ext = $this->getRequest()->getParam('ext','mp3');
-        //http://ring.appvv.com/$ring[hash].mp3
         $filename = $hash.'.'.$ext;
         $dllink = "http://ring.appvv.com/{$filename}";
         //下载逻辑
         if($this->model->updateDlNum($hash)) {
-            header("Content-Type: application/force-download");
-            header("Content-Disposition: attachment; filename=".basename($dllink));
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename='.basename($dllink));
+            header('Content-Transfer-Encoding: binary');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($dllink));
+            ob_clean();
+            flush();
             readfile($dllink);
+            //header("Content-Type: application/force-download");
             exit;
-        }
+        }else Response::error(448,'FILE NOT FOUND');
     }
 
 }

@@ -15,8 +15,8 @@ use Strever\API\Response;
 class ArtistController extends BaseRingController {
 
     public function getHotAction() {
-        $topNum = $this->getRequest()->getParam('top_num')?$this->getRequest()->getParam('top_num'):15;
-        $artists = $this->model->getHot($topNum);
+        $rowCount = $this->getRequest()->getParam('rowCount',15);
+        $artists = $this->model->getHot($rowCount);
         Response::show($artists);
     }
 
