@@ -244,8 +244,8 @@ class Mysql {
             $update .= $whereStr;
             echo $update;
         }else {
-            $insert = $insert = 'INSERT INTO ' . $this->_table;
-            $insert .= ' (`' . implode('`, `',array_keys($values)) . '`) VALUES(\'' . implode('\', \'',array_values($values)) . '\')';
+            $insert = $insert = 'INSERT INTO `' . $this->_table . '`';
+            $insert .= '(`' . implode('`, `',array_keys($values)) . '`) VALUES(\'' . implode('\', \'',array_values($values)) . '\')';
             echo $insert;
         }
     }
