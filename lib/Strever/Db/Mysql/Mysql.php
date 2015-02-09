@@ -234,12 +234,13 @@ class Mysql {
 
     public function save($values) {
         if(array_key_exists($this->_primary,$values)) {
-            $update = 'UPDATE TABLE ' . $this->_table . ' SET';
-            $whereStr = $this->_primary . " = " . $values[$this->_primary];
+            $update = 'UPDATE TABLE `' . $this->_table . '` SET ';
+            $whereStr = ' WHERE '$this->_primary . " = " . $values[$this->_primary];
             unset($values[$this->_primary]);
             foreach($values as $k => $v) {
-                $update .= '`' . $k . "` = '" . $v . "'";
+                $update .= '`' . $k . "` = '" . $v . "',";
             }
+            $update = substr($update,-1,1);
             $update .= $whereStr;
             echo $update;
         }else {
