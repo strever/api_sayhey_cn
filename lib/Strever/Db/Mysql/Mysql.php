@@ -109,7 +109,7 @@ class Mysql {
         if(is_numeric($condition)) {
             $sql = "SELECT $fields FROM " . $this->_table . " WHERE " . $this->_primary . " = {$condition}";
         }elseif(is_array($condition)) {
-            $sql = "SELECT $fields FROM " . $this->_table . " WHERE `" . key($condition) . "` = " . $condition[key($condition)];
+            $sql = "SELECT $fields FROM " . $this->_table . " WHERE `" . key($condition) . "` = '" . $condition[key($condition)] . "'";
         }
         return self::fetch($sql);
     }
