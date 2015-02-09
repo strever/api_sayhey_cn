@@ -15,7 +15,7 @@ use Strever\Db\Mysql\Mysql;
 
 class DlRecordModel extends Mysql {
     protected $_table = "ring_dlrecord";
-    protected $_primary = "ring_id";
+    //protected $_primary = "ring_id";
     protected static $_fields = 'ring_id,dl_time';
 
     /*
