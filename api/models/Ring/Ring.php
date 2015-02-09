@@ -117,11 +117,44 @@ class RingModel extends Mysql {
     }
 
     /**
-     * 点赞
      * @param $ring_id
+     * @return bool|mixed
      */
     public function support($ring_id) {
         $sql = "UPDATE `ring` SET `support` = `support`+1 WHERE ring_id = {$ring_id}";
+        if($id = $this->exec($sql)) {
+            return $id;
+        }else return false;
+    }
+
+    /**
+     * @param $condition ring_id or hash
+     * @return bool|mixed
+     */
+    public function updateDlNum($condition) {
+        if(!is_numeric($condition)) {
+            $ring = $this->find(array('hash'=>$condition));
+        }else {
+            $ring = $this->find($condition);
+        }
+        $ringId = $ring['ring_id'];
+        if($ringId) {
+            //更新主表
+            $sql = "UPDATE `ring` SET `download_num` = `download_num`+1 WHERE ring_id = {$ringId}";
+            $affectedRows = $this->exec($sql);
+            if($affectedRows) {
+                //更新ring_dlrecord表
+                $dlrecordModel = new DlRecordModel();
+                $data = array(
+                    'ring_id'  => $ringId,
+                    'genre_id' => $ring['genre_id'],
+                    'singer_id'=> $ring['singer_id'],
+                    'dltime'   => time()
+                );
+                $dlrecordModel->save($data);
+            }
+        }
+
         if($id = $this->exec($sql)) {
             return $id;
         }else return false;

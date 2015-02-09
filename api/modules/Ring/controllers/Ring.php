@@ -98,15 +98,12 @@ class RingController extends BaseRingController {
         $filename = $hash.'.'.$ext;
         $dllink = "http://ring.appvv.com/{$filename}";
         //下载逻辑
+        $this->model->updateDlNum($hash);
+        //
 
-        //header ( "Content-type: application/octet-stream" );
-        //header ( 'Content-Disposition: attachment; filename="' . $filename . '"' );
-
-        // 就这么简单一句话搞定 注意“protected”是和nginx配置文件的 protected要一致
-        //header("X-Accel-Redirect: {$dllink}");
-        header("Content-Type: application/force-download");
-        header("Content-Disposition: attachment; filename=".basename($dllink));
-        readfile($dllink);
+        //header("Content-Type: application/force-download");
+        //header("Content-Disposition: attachment; filename=".basename($dllink));
+        //readfile($dllink);
         exit;
     }
 

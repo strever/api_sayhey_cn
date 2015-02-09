@@ -104,9 +104,13 @@ class Mysql {
 
     }
 
-    public function find($id,$fields = '') {
+    public function find($condition,$fields = '') {
         $fields = !empty($fields)?self::parseFields($fields):'*';
-        $sql = "SELECT $fields FROM " . $this->_table . " WHERE " . $this->_primary . " = $id";
+        if(is_numeric($condition)) {
+            $sql = "SELECT $fields FROM " . $this->_table . " WHERE " . $this->_primary . " = {$condition}";
+        }elseif(is_array($condition)) {
+            $sql = "SELECT $fields FROM " . $this->_table . " WHERE `" . key($condition) . "` = " . $condition[key($condition)];
+        }
         return self::fetch($sql);
     }
 
@@ -226,6 +230,23 @@ class Mysql {
         }
         echo $sql = "INSERT INTO " . $this->_table . ' (`' . implode ( '`, `', $cols ) . '`) ' . 'VALUES (\'' . implode ( '\', \'', $vals ) . '\')';
         die;
+    }
+
+    public function save($values) {
+        if(array_key_exists($this->_primary,$values)) {
+            $update = 'UPDATE TABLE ' . $this->_table . ' SET';
+            $whereStr = $this->_primary . " = " . $values[$this->_primary];
+            unset($values[$this->_primary]);
+            foreach($values as $k => $v) {
+                $update .= '`' . $k . "` = '" . $v . "'";
+            }
+            $update .= $whereStr;
+            echo $update;
+        }else {
+            $insert = $insert = 'INSERT INTO ' . $this->_table;
+            $insert .= ' (`' . implode('`, `',array_keys($values)) . '`) VALUES(\'' . implode('\', \'',array_values($values)) . '\')';
+            echo $insert;
+        }
     }
 
     /**
