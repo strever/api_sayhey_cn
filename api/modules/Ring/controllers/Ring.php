@@ -96,7 +96,7 @@ class RingController extends BaseRingController {
         $ext = $this->getRequest()->getParam('ext','mp3');
         //http://ring.appvv.com/$ring[hash].mp3
         $filename = $hash.'.'.$ext;
-        $dllink = "http://ring.appvv.com/{$filename}";
+        echo $dllink = "http://ring.appvv.com/{$filename}";
         //下载逻辑
 
         //header ( "Content-type: application/octet-stream" );
