@@ -51,6 +51,17 @@ class RingModel extends Mysql {
         $size_arr = self::parseSize($ring['size']);
         $ring['humanSize'] = intval($size_arr[0]) . ' ' . $size_arr[1];
 
+        //上传者信息
+        $uploadModel = new UploadModel();
+        try {
+            $ring['upload_user'] = $uploadModel->find($ringId);
+        }catch (\Exception $e) {
+            $ring['upload_user'] = array(
+                'ring_id' => $ringId,  'user_id'  => 30327, 'nickname' => '一个木偶','uploaded_at'   => strtotime('2014-02-05')
+            );
+        }
+
+
         return $ring;
     }
 
