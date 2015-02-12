@@ -57,7 +57,7 @@ class RingModel extends Mysql {
             $ring['upload_user'] = $uploadModel->find($ringId);
         }catch (\Exception $e) {
             $ring['upload_user'] = array(
-                'ring_id' => $ringId,  'user_id'  => 30327, 'nickname' => '一个木偶','uploaded_at'   => strtotime('2014-02-05')
+                'ring_id' => $ringId,  'user_id'  => 30327, 'nickname' => '一个木偶','uploaded_at'  => strtotime('2014-02-05')
             );
         }
 

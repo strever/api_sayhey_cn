@@ -17,7 +17,4 @@ class UploadModel extends Mysql {
     protected $_primary = "ring_id";
     protected static $_fields = 'ring_id,user_id,nickname,uploaded_at';
 
-
-
-
 }
