@@ -129,7 +129,7 @@ class RingController extends BaseRingController {
         $keyword = $this->getRequest()->getParam('s');
         $currentPage = $this->getRequest()->getParam('page',1);
         if(empty($keyword)) Response::error(492,'没有关键词');
-        echo $keyword = addslashes($keyword);
+        $keyword = addslashes($keyword);
         $rings = $this->model->getBySearch($keyword,intval($currentPage));
         Response::show($rings);
     }
