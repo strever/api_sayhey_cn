@@ -196,7 +196,7 @@ class Mysql {
     // 完成查询功能的函数
     public function fetchAll($fields = '', $where = '', $order = '', $count = '', $offset = '') {
         $fields = !empty($fields)?self::parseFields($fields):'*';
-        echo $whereStr = self::parseWhere($where);
+        $whereStr = self::parseWhere($where);
         $order = ($order) ? " ORDER BY $order" : '';
         $limit = (($count && $offset) ? " LIMIT $offset,$count" :($count?" LIMIT $count":''));
         $sql = "SELECT $fields FROM " . $this->_table . $whereStr . $order . $limit;
@@ -286,7 +286,7 @@ class Mysql {
 
     public function count($where='') {
         $whereStr = self::parseWhere($where);
-        echo $sql = "SELECT count(*) as count FROM " . $this->_table . $whereStr . ' LIMIT 1';
+        $sql = "SELECT count(*) as count FROM " . $this->_table . $whereStr . ' LIMIT 1';
         $row = self::fetch($sql);
         return $row['count'];
     }
