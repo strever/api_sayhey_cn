@@ -196,11 +196,11 @@ class Mysql {
     // 完成查询功能的函数
     public function fetchAll($fields = '', $where = '', $order = '', $count = '', $offset = '') {
         $fields = !empty($fields)?self::parseFields($fields):'*';
-        $whereStr = self::parseWhere($where);
+        echo $whereStr = self::parseWhere($where);
         $order = ($order) ? " ORDER BY $order" : '';
         $limit = (($count && $offset) ? " LIMIT $offset,$count" :($count?" LIMIT $count":''));
         $sql = "SELECT $fields FROM " . $this->_table . $whereStr . $order . $limit;
-        echo $sql;
+        //echo $sql;
         return self::query($sql);
     }
 
