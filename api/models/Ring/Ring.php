@@ -148,7 +148,8 @@ class RingModel extends Mysql {
 
 
     public function getBySearch($keyword,$currentPage) {
-        $where = array('like' => array('title' => "$keyword"));
+        $keyword = '%' . $keyword . '%';
+        $where = array('like' => array('title' => $keyword));
         $order = $this->orderBy('DL_NUM');
         return $this->paginator(self::$fields,$where,$currentPage,$order,20);
     }
