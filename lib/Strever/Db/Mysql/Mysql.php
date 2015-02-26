@@ -286,7 +286,7 @@ class Mysql {
 
     public function count($where='') {
         $whereStr = self::parseWhere($where);
-        $sql = "SELECT count(*) as count FROM " . $this->_table . $whereStr . ' LIMIT 1';
+        echo $sql = "SELECT count(*) as count FROM " . $this->_table . $whereStr . ' LIMIT 1';
         $row = self::fetch($sql);
         return $row['count'];
     }
