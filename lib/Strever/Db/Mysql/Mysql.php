@@ -161,13 +161,13 @@ class Mysql {
                 if(in_array($k,array('lt','gt','eq','neq','gteq','lteq','in','like'))) {
                     switch($k) {
                         case 'lt'  :foreach($v as $key=>$val){$whereStr .= "`$key`<$val AND ";}break;   //或者 $whereStr .= parseWhere($v)
-                        case 'gt'  :$whereStr .= '`' .key($v) . '`>' . $v[key($v)] . 'AND ';break;
-                        case 'eq'  :$whereStr .= '`' .key($v) . '`=' . $v[key($v)] . 'AND ';break;
-                        case 'neq' :$whereStr .= '`' .key($v) . '`!=' . $v[key($v)] . 'AND ';break;
-                        case 'lteq':$whereStr .= '`' .key($v) . '`<=' . $v[key($v)] . 'AND ';break;
+                        case 'gt'  :$whereStr .= '`' .key($v) . '`>' . $v[key($v)] . ' AND ';break;
+                        case 'eq'  :$whereStr .= '`' .key($v) . '`=' . $v[key($v)] . ' AND ';break;
+                        case 'neq' :$whereStr .= '`' .key($v) . '`!=' . $v[key($v)] . ' AND ';break;
+                        case 'lteq':$whereStr .= '`' .key($v) . '`<=' . $v[key($v)] . ' AND ';break;
                         case 'in'  :$whereStr .= '`' .key($v) . '` IN (' . join(',',$v[key($v)]) . ') AND ';break;
-                        case 'gteq':$whereStr .= '`' .key($v) . '`>=' . $v[key($v)] . 'AND ';break;
-                        case 'like':$whereStr .= '`' .key($v) . '` LIKE ' . $v[key($v)] . 'AND ';break;
+                        case 'gteq':$whereStr .= '`' .key($v) . '`>=' . $v[key($v)] . ' AND ';break;
+                        case 'like':$whereStr .= '`' .key($v) . '` LIKE ' . $v[key($v)] . ' AND ';break;
                     }
                 }else $whereStr .= "`$k`='$v' AND ";
             }
