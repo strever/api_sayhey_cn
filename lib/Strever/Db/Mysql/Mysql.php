@@ -167,7 +167,7 @@ class Mysql {
                         case 'lteq':$whereStr .= '`' .key($v) . '`<=' . $v[key($v)] . 'AND ';break;
                         case 'in'  :$whereStr .= '`' .key($v) . '` IN (' . join(',',$v[key($v)]) . ') AND ';break;
                         case 'gteq':$whereStr .= '`' .key($v) . '`>=' . $v[key($v)] . 'AND ';break;
-                        case 'like'  :$whereStr .= '`' .key($v) . '` LIKE ' . $v[key($v)] . 'AND ';break;
+                        case 'like':$whereStr .= '`' .key($v) . '` LIKE ' . $v[key($v)] . 'AND ';break;
                     }
                 }else $whereStr .= "`$k`='$v' AND ";
             }
