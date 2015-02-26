@@ -146,6 +146,13 @@ class RingModel extends Mysql {
         }else return false;
     }
 
+
+    public function getBySearch($keyword,$currentPage) {
+        $where = array('like' => array('title' => "%{$keyword}%"));
+        $order = $this->orderBy('DL_NUM');
+        return $this->paginator(self::$fields,$where,$currentPage,$order,20);
+    }
+
     /**
      * @param $condition ring_id or hash
      * @return bool|mixed

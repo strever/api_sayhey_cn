@@ -125,4 +125,13 @@ class RingController extends BaseRingController {
         }else Response::error(448,'FILE NOT FOUND');
     }
 
+    public function searchAction() {
+        $keyword = $this->getRequest()->getParam('s');
+        $currentPage = $this->getRequest()->getParam('page',1);
+        if(empty($keyword)) Response::error(492,'没有关键词');
+        $keyword = mysql_real_escape_string($keyword);
+        $rings = $this->model->getBySearch($keyword,intval($currentPage));
+        Response::show($rings);
+    }
+
 }
