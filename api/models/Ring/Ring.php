@@ -151,7 +151,19 @@ class RingModel extends Mysql {
         $keyword = '%' . $keyword . '%';
         $where = array('like' => array('title' => $keyword));
         $order = $this->orderBy('DL_NUM');
-        return $this->paginator(self::$fields,$where,$currentPage,$order,20);
+        $pageData = $this->paginator(self::$fields,$where,$currentPage,$order,20);
+
+        //处理歌手图片信息
+        $artistModel = new ArtistModel();
+        foreach($pageData['currentPageRows'] as $k => $ring) {
+            try {
+                $artist = $artistModel->find($ring['singer_id']);
+                $pageData['currentPageRows'][$k]['artist_head_pic'] = $artist['head_pic'];
+            }catch (\Exception $e) {
+                $pageData['currentPageRows'][$k]['artist_head_pic'] = "/artistHeads/0/default.png";
+            }
+        }
+        return $pageData;
     }
 
     /**
