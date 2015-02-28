@@ -105,7 +105,17 @@ class RingController extends BaseRingController {
     public function downloadAction() {
         $hash = $this->getRequest()->getParam('hash');
         $ext = $this->getRequest()->getParam('ext','mp3');
-        $filename = $hash.'.'.$ext;
+
+        $length = strlen($hash);
+        $new = '';
+        for($i=0; $i<$length; $i++) {
+            if($i%2 != 0 && $i< 8){
+                $new .= $hash[$i].'/';
+            }else{
+                $new .= $hash[$i];
+            }
+        }
+        $filename = $new.'.'.$ext;
         $dllink = "http://ring.appvv.com/{$filename}";
         //下载逻辑
         if($this->model->updateDlNum($hash)) {
