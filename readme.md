@@ -1,11 +1,12 @@
-# Project `get.appvv.com ` 
+# Project `api.sayhey.cn ` 
 
-an api for appvv.com
+an api for sayhey.cn
 
 ## Requirement
 + yaf.so    
   | - php 5.2+ 5.3+recommended   
-  | - mongodb  
+  | - mongodb
+  | - mysql  
 
 ## Deploy
 
@@ -104,8 +105,12 @@ an api for appvv.com
 
 
 ### Json Http Request
+	请求地址
+	e.g.: http://api.sayhey.cn/ring/ring/search/s/hello?format=json	
 
 ### Xml Http Request
+	请求地址
+	e.g.: http://api.sayhey.cn/ring/ring/search/s/hello?format=xml
 
 	
 
