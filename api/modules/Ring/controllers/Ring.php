@@ -144,4 +144,10 @@ class RingController extends BaseRingController {
         Response::show($rings);
     }
 
+    public function filterAction() {
+        $currentPage = $this->getRequest()->getParam('page',1);
+        $rings = $this->model->filter(intval($currentPage));
+        Response::show($rings);
+    }
+
 }
